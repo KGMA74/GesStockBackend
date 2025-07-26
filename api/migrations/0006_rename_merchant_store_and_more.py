@@ -12,12 +12,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameModel(
-            old_name='Merchant',
+            old_name='Store',
             new_name='Store',
         ),
         migrations.RemoveConstraint(
             model_name='user',
-            name='unique_username_per_merchant',
+            name='unique_username_per_store',
         ),
         migrations.RemoveConstraint(
             model_name='user',
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         ),
         migrations.RenameField(
             model_name='user',
-            old_name='merchant',
+            old_name='store',
             new_name='store',
         ),
         migrations.AddConstraint(

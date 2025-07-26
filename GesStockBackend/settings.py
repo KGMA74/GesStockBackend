@@ -136,7 +136,7 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': 'auth/password-reset/{uid}/{token}?mc={merchant_code}',
+    'PASSWORD_RESET_CONFIRM_URL': 'auth/password-reset/{uid}/{token}?mc={store_code}',
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'activation/{uid}/{token}',
     'USER_CREATE_PASSWORD_RETYPE': False,  
@@ -150,9 +150,9 @@ DJOSER = {
         'user_list':  ["rest_framework.permissions.IsAuthenticated"]
     },
     'SERIALIZERS': {
-        'user': 'apps.users.serializers.CustomUserSerializer',
-        'current_user': 'apps.users.serializers.CustomUserSerializer',
-        'password_reset': 'apps.users.serializers.CustomPasswordResetSerializer',
+        'user': 'api.serializers.CustomUserSerializer',
+        'current_user': 'api.serializers.CustomUserSerializer',
+        # 'password_reset': 'api.serializers.CustomPasswordResetSerializer',
     }
 }
 

@@ -22,10 +22,10 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='user',
-            constraint=models.UniqueConstraint(condition=models.Q(('merchant__isnull', False)), fields=('merchant', 'username'), name='unique_username_per_merchant'),
+            constraint=models.UniqueConstraint(condition=models.Q(('store__isnull', False)), fields=('store', 'username'), name='unique_username_per_store'),
         ),
         migrations.AddConstraint(
             model_name='user',
-            constraint=models.UniqueConstraint(condition=models.Q(('merchant__isnull', True)), fields=('username',), name='unique_username_global'),
+            constraint=models.UniqueConstraint(condition=models.Q(('store__isnull', True)), fields=('username',), name='unique_username_global'),
         ),
     ]
