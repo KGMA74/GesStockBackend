@@ -1,5 +1,5 @@
 from rest_framework.request import Request
-from .models import User
+from .models import User, Store
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
@@ -46,16 +46,18 @@ class CustomAuthenticationBackend(ModelBackend):
                 return None
         else:
             try:
-                store = store.objects.get(name=store_name)
+                store = Store.objects.get(name=store_name)
+                print(store)
                 if not store.is_active:
                     return None
-            except store.DoesNotExist:
+            except Store.DoesNotExist:
                 return None
             try:
                 user = User.objects.get(
                     username=username,
                     store=store
                 )
+                print(user)
             except User.DoesNotExist:
                 return None
 

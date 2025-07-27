@@ -21,6 +21,7 @@ class Store(models.Model):
  
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=False, db_index=True)  # Ajout d'un index pour les performances
+    email = models.EmailField(max_length=254)
     phone = models.CharField(max_length=15, null=True, blank=True)
     fullname = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['fullname']
+    REQUIRED_FIELDS = ['fullname', 'email']
     
     def __str__(self):
         return f"{self.fullname} ({self.username})"
@@ -52,11 +53,22 @@ class User(AbstractBaseUser, PermissionsMixin):
                 name='unique_username_per_store',
                 condition=models.Q(store__isnull=False)
             ),
+            models.UniqueConstraint(
+                fields=['store', 'email'],
+                name='unique_email_per_store',
+                condition=models.Q(store__isnull=False)
+            ),
+            
             
             # Cas global (store null) pour le support technique
             models.UniqueConstraint(
                 fields=['username'],
                 name='unique_username_global',
+                condition=models.Q(store__isnull=True)
+            ),
+            models.UniqueConstraint(
+                fields=['email'],
+                name='unique_email_global',
                 condition=models.Q(store__isnull=True)
             ),
         ]
@@ -153,6 +165,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     unit = models.CharField(max_length=20, default='pièce')  # pièce, kg, litre, etc.
     min_stock_alert = models.PositiveIntegerField(default=5)
+    
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='products')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -333,9 +346,9 @@ class StockExitItem(models.Model):
                 stock.quantity -= self.quantity
                 stock.save()
             else:
-                raise ValueError(f"Stock insuffisant pour {self.product.reference}")
+                raise ValueError(f"Stock insuffisant pour {self.product.reference}. Stock disponible: {stock.quantity}, quantité demandée: {self.quantity}")
         except ProductStock.DoesNotExist:
-            raise ValueError(f"Aucun stock disponible pour {self.product.reference}")
+            raise ValueError(f"Aucun stock disponible pour {self.product.reference} dans l'entrepôt {self.stock_exit.warehouse.name}")
     
     def __str__(self):
         return f"{self.product.reference} x{self.quantity}"
@@ -422,8 +435,10 @@ class FinancialTransaction(models.Model):
         
         super().save(*args, **kwargs)
         
-        # Mise à jour des soldes des comptes
+        # Mise à jour des soldes des comptes avec vérification
         if self.from_account:
+            if self.from_account.balance < self.amount:
+                raise ValueError(f"Solde insuffisant dans le compte '{self.from_account.name}'. Solde disponible: {self.from_account.balance} F, montant demandé: {self.amount} F")
             self.from_account.balance -= self.amount
             self.from_account.save()
         

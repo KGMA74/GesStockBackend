@@ -28,6 +28,7 @@ class Command(BaseCommand):
         if not User.objects.filter(username="admin").exists():
             super_admin = User.objects.create_user(
                 username="admin",
+                email="admin@gesstock.com",
                 fullname="Administrateur Système",
                 is_staff=True,
                 is_superuser=True,
@@ -41,6 +42,7 @@ class Command(BaseCommand):
         if not User.objects.filter(username="manager1").exists():
             user1 = User.objects.create_user(
                 username="manager1",
+                email="manager1@gesstock.com",
                 fullname="Manager Centre-Ville",
                 phone="123456789",
                 store=store1,
