@@ -2,7 +2,7 @@ from rest_framework import serializers
 from djoser.serializers import UserSerializer, SendEmailResetSerializer
 from djoser.conf import settings
 from django.contrib.auth import get_user_model
-from .models import Store, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, Account
+from .models import Store, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, Account, Invoice, FinancialTransaction
 # Permission
 import random
 import string
@@ -176,6 +176,8 @@ class StockEntryItemSerializer(serializers.ModelSerializer):
 class StockEntrySerializer(serializers.ModelSerializer):
     supplier_name = serializers.CharField(source='supplier.name', read_only=True)
     warehouse_name = serializers.CharField(source='warehouse.name', read_only=True)
+    account_name = serializers.CharField(source='account.name', read_only=True)
+    account_type = serializers.CharField(source='account.account_type', read_only=True)
     created_by_name = serializers.CharField(source='created_by.fullname', read_only=True)
     items = StockEntryItemSerializer(many=True, read_only=True)
     
@@ -195,6 +197,8 @@ class StockExitItemSerializer(serializers.ModelSerializer):
 class StockExitSerializer(serializers.ModelSerializer):
     customer_name = serializers.SerializerMethodField()
     warehouse_name = serializers.CharField(source='warehouse.name', read_only=True)
+    account_name = serializers.CharField(source='account.name', read_only=True)
+    account_type = serializers.CharField(source='account.account_type', read_only=True)
     created_by_name = serializers.CharField(source='created_by.fullname', read_only=True)
     items = StockExitItemSerializer(many=True, read_only=True)
     
@@ -212,6 +216,7 @@ class StockExitSerializer(serializers.ModelSerializer):
 class StockEntryFormSerializer(serializers.Serializer):
     supplier = serializers.IntegerField()
     warehouse = serializers.IntegerField()
+    account = serializers.IntegerField(required=False)  # Compte source pour le paiement
     notes = serializers.CharField(required=False, allow_blank=True)
     items = serializers.ListField(
         child=serializers.DictField(
@@ -224,6 +229,7 @@ class StockExitFormSerializer(serializers.Serializer):
     customer = serializers.IntegerField(required=False)
     customer_name = serializers.CharField(required=False, allow_blank=True)
     warehouse = serializers.IntegerField()
+    account = serializers.IntegerField(required=False)  # Compte de destination
     notes = serializers.CharField(required=False, allow_blank=True)
     items = serializers.ListField(
         child=serializers.DictField(
@@ -248,4 +254,63 @@ class AccountSerializer(serializers.ModelSerializer):
             ).exclude(pk=self.instance.pk if self.instance else None).exists():
                 raise serializers.ValidationError("Un compte avec ce nom existe déjà.")
         return value
+
+
+# Serializer pour les factures
+class InvoiceSerializer(serializers.ModelSerializer):
+    customer_name = serializers.SerializerMethodField()
+    stock_exit_number = serializers.CharField(source='stock_exit.exit_number', read_only=True)
+    warehouse_name = serializers.CharField(source='stock_exit.warehouse.name', read_only=True)
+    items = serializers.SerializerMethodField()
     
+    class Meta:
+        model = Invoice
+        fields = [
+            'id', 'invoice_number', 'customer_name', 'total_amount', 
+            'stock_exit_number', 'warehouse_name', 'created_at', 'items'
+        ]
+    
+    def get_customer_name(self, obj):
+        if obj.customer:
+            return obj.customer.name
+        return obj.customer_name or 'Client anonyme'
+    
+    def get_items(self, obj):
+        """Récupère les items du bon de sortie associé"""
+        return StockExitItemSerializer(obj.stock_exit.items.all(), many=True).data
+
+
+# Serializer pour les transactions financières
+class FinancialTransactionSerializer(serializers.ModelSerializer):
+    from_account = AccountSerializer(read_only=True)
+    to_account = AccountSerializer(read_only=True)
+    created_by = CustomUserSerializer(read_only=True)
+    stock_entry = serializers.SerializerMethodField()
+    stock_exit = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = FinancialTransaction
+        fields = [
+            'id', 'transaction_number', 'transaction_type', 'amount', 
+            'description', 'from_account', 'to_account', 'stock_entry', 
+            'stock_exit', 'created_by', 'created_at'
+        ]
+        read_only_fields = ['id', 'transaction_number', 'created_at']
+    
+    def get_stock_entry(self, obj):
+        if obj.stock_entry:
+            return {
+                'id': obj.stock_entry.id,
+                'entry_number': obj.stock_entry.entry_number,
+                'supplier': obj.stock_entry.supplier.name if obj.stock_entry.supplier else None
+            }
+        return None
+    
+    def get_stock_exit(self, obj):
+        if obj.stock_exit:
+            return {
+                'id': obj.stock_exit.id,
+                'exit_number': obj.stock_exit.exit_number,
+                'customer': obj.stock_exit.customer.name if obj.stock_exit.customer else obj.stock_exit.customer_name
+            }
+        return None

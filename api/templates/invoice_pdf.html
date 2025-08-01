@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture {{ invoice.invoice_number }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+            @top-center {
+                content: "{{ store.name }}";
+                font-size: 14px;
+                font-weight: bold;
+            }
+            @bottom-center {
+                content: "Page " counter(page) " sur " counter(pages);
+                font-size: 10px;
+            }
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #2563eb;
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        
+        .header h2 {
+            color: #1e40af;
+            font-size: 20px;
+            margin: 10px 0 0 0;
+            font-weight: normal;
+        }
+        
+        .company-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .company-section h3 {
+            color: #2563eb;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 30px;
+        }
+        
+        .invoice-info {
+            flex: 1;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .customer-info {
+            flex: 1;
+            background: #fef7ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #9333ea;
+        }
+        
+        .info-title {
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .info-row {
+            margin-bottom: 8px;
+            display: flex;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            color: #475569;
+        }
+        
+        .info-value {
+            color: #1e293b;
+        }
+        
+        .items-section {
+            margin: 30px 0;
+        }
+        
+        .items-title {
+            color: #2563eb;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .items-table th {
+            background: #2563eb;
+            color: white;
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .items-table th:nth-child(2),
+        .items-table th:nth-child(3),
+        .items-table th:nth-child(4) {
+            text-align: right;
+        }
+        
+        .items-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .items-table td:nth-child(2),
+        .items-table td:nth-child(3),
+        .items-table td:nth-child(4) {
+            text-align: right;
+        }
+        
+        .items-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .items-table tr:hover {
+            background: #f1f5f9;
+        }
+        
+        .totals-section {
+            margin-top: 30px;
+        }
+        
+        .totals-table {
+            width: 300px;
+            margin-left: auto;
+            border-collapse: collapse;
+        }
+        
+        .totals-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .totals-table .label {
+            text-align: left;
+            font-weight: bold;
+            color: #475569;
+        }
+        
+        .totals-table .value {
+            text-align: right;
+            color: #1e293b;
+        }
+        
+        .total-final {
+            background: #2563eb;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .total-final .label,
+        .total-final .value {
+            color: white;
+        }
+        
+        .notes-section {
+            margin-top: 40px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .notes-title {
+            color: #10b981;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-paid {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>FACTURE</h1>
+        <h2>{{ store.name }}</h2>
+    </div>
+    
+    <div class="company-section">
+        <h3>Informations de l'entreprise</h3>
+        <div class="info-row">
+            <span class="info-label">Nom:</span>
+            <span class="info-value">{{ store.name }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Adresse:</span>
+            <span class="info-value">{{ store.address }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Téléphone:</span>
+            <span class="info-value">{{ store.phone }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ store.email }}</span>
+        </div>
+    </div>
+    
+    <div class="invoice-details">
+        <div class="invoice-info">
+            <div class="info-title">Détails de la facture</div>
+            <div class="info-row">
+                <span class="info-label">N° Facture:</span>
+                <span class="info-value">{{ invoice.invoice_number }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Date:</span>
+                <span class="info-value">{{ invoice.created_at|date:"d/m/Y" }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Heure:</span>
+                <span class="info-value">{{ invoice.created_at|date:"H:i" }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Statut:</span>
+                <span class="info-value">
+                    <span class="status-badge status-paid">Payée</span>
+                </span>
+            </div>
+        </div>
+        
+        <div class="customer-info">
+            <div class="info-title">Informations client</div>
+            <div class="info-row">
+                <span class="info-label">Nom:</span>
+                <span class="info-value">{{ customer.name }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Adresse:</span>
+                <span class="info-value">{{ customer.address }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Téléphone:</span>
+                <span class="info-value">{{ customer.phone }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{ customer.email }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="items-section">
+        <h3 class="items-title">Détail des articles</h3>
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix unitaire</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>
+                        <strong>{{ item.product.name }}</strong><br>
+                        <small style="color: #64748b;">Code: {{ item.product.barcode }}</small>
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.unit_price|floatformat:2 }} FCFA</td>
+                    <td>{{ item.total_amount|floatformat:2 }} FCFA</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="totals-section">
+        <table class="totals-table">
+            <tr>
+                <td class="label">Sous-total:</td>
+                <td class="value">{{ subtotal|floatformat:2 }} FCFA</td>
+            </tr>
+            <tr>
+                <td class="label">TVA (18%):</td>
+                <td class="value">{{ tax_amount|floatformat:2 }} FCFA</td>
+            </tr>
+            <tr class="total-final">
+                <td class="label">TOTAL À PAYER:</td>
+                <td class="value">{{ total_amount|floatformat:2 }} FCFA</td>
+            </tr>
+        </table>
+    </div>
+    
+    {% if invoice.stock_exit.notes %}
+    <div class="notes-section">
+        <div class="notes-title">Notes:</div>
+        <p>{{ invoice.stock_exit.notes }}</p>
+    </div>
+    {% endif %}
+    
+    <div class="footer">
+        <p><strong>Merci pour votre confiance!</strong></p>
+        <p>Facture générée le {{ "now"|date:"d/m/Y à H:i" }}</p>
+        <p>{{ store.name }} - {{ store.address }} - {{ store.phone }}</p>
+    </div>
+</body>
+</html>

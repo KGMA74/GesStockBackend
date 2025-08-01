@@ -2,10 +2,11 @@ from .serializers import (
     CustomUserSerializer, CreateUserSerializer,
     ProductSerializer, StockEntrySerializer, StockExitSerializer,
     StockEntryFormSerializer, StockExitFormSerializer,
-    SupplierSerializer, WarehouseSerializer, CustomerSerializer, AccountSerializer
+    SupplierSerializer, WarehouseSerializer, CustomerSerializer, AccountSerializer, InvoiceSerializer,
+    FinancialTransactionSerializer
 )
 from django.contrib.auth import login, user_logged_in
-from .models import User, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, ProductStock, Account
+from .models import User, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, ProductStock, Account, Invoice, FinancialTransaction
 from django.conf import settings 
 from djoser.views import UserViewSet
 from django.shortcuts import get_object_or_404
@@ -23,6 +24,10 @@ from djoser.social.views import ProviderAuthView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from .authentication import CustomAuthenticationBackend
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from weasyprint import HTML
+import io
 
 
 # from authentication.permissions import CanApproveLevel1, CanApproveLevel2, CanApproveLevel3
@@ -494,10 +499,28 @@ class StockEntryViewSet(viewsets.ModelViewSet, StoreContextMixin):
             # Générer un numéro d'entrée unique
             entry_number = f"EN-{StockEntry.objects.count() + 1:06d}"
             
+            # Récupérer le compte source si spécifié
+            account = None
+            account_id = serializer.validated_data.get('account')
+           
+            if account_id:
+                try:
+                    account = Account.objects.get(
+                        id=account_id, 
+                        store=self.request.user.store,
+                        is_active=True
+                    )
+                except Account.DoesNotExist:
+                    return Response(
+                        {'error': 'Compte spécifié non trouvé ou inactif'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            
             stock_entry = StockEntry.objects.create(
                 entry_number=entry_number,
                 supplier=supplier,
                 warehouse=warehouse,
+                account=account,  # Ajout du compte
                 notes=serializer.validated_data.get('notes', ''),
                 created_by=self.request.user,
                 total_amount=Decimal('0.00')
@@ -596,11 +619,31 @@ class StockExitViewSet(viewsets.ModelViewSet, StoreContextMixin):
             # Générer un numéro de sortie unique
             exit_number = f"EX-{StockExit.objects.count() + 1:06d}"
             
+            # Récupérer le compte de destination si spécifié
+            account = None
+            account_id = serializer.validated_data.get('account')
+           
+            if account_id:
+                print("---------------------------------------------, account1")
+                try:
+                    account = Account.objects.get(
+                        id=account_id, 
+                        store=self.request.user.store,
+                        is_active=True
+                    )
+                    print("---------------------------------------------, accoun2", account)
+                except Account.DoesNotExist:
+                    return Response(
+                        {'error': 'Compte spécifié non trouvé ou inactif'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            
             stock_exit = StockExit.objects.create(
                 exit_number=exit_number,
                 customer=customer,
                 customer_name=serializer.validated_data.get('customer_name', ''),
                 warehouse=warehouse,
+                account=account,  # Ajout du compte
                 notes=serializer.validated_data.get('notes', ''),
                 created_by=self.request.user,
                 total_amount=Decimal('0.00')
@@ -736,6 +779,61 @@ class AccountViewSet(viewsets.ModelViewSet, StoreContextMixin):
     def perform_create(self, serializer):
         serializer.save(store=self.store)
     
+    @action(detail=False, methods=['get'], url_path='active')
+    def active_accounts(self, request):
+        """Retourne seulement les comptes actifs pour les sélecteurs"""
+        queryset = self.get_queryset().filter(is_active=True)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=True, methods=['get'], url_path='transactions')
+    def account_transactions(self, request, pk=None):
+        """Retourne l'historique des transactions d'un compte"""
+        account = self.get_object()
+        from .models import FinancialTransaction
+        
+        # Récupérer toutes les transactions entrantes et sortantes
+        incoming = FinancialTransaction.objects.filter(to_account=account)
+        outgoing = FinancialTransaction.objects.filter(from_account=account)
+        
+        # Combiner et ordonner par date
+        all_transactions = incoming.union(outgoing).order_by('-created_at')
+        
+        # Paginer les résultats
+        page = int(request.query_params.get('page', 1))
+        page_size = int(request.query_params.get('page_size', 20))
+        
+        from django.core.paginator import Paginator
+        paginator = Paginator(all_transactions, page_size)
+        page_obj = paginator.get_page(page)
+        
+        # Formater les données
+        transactions_data = []
+        for transaction in page_obj:
+            movement_type = 'credit' if transaction.to_account == account else 'debit'
+            transactions_data.append({
+                'id': transaction.id,
+                'transaction_number': transaction.transaction_number,
+                'transaction_type': transaction.transaction_type,
+                'transaction_type_display': transaction.get_transaction_type_display(),
+                'amount': str(transaction.amount),
+                'movement_type': movement_type,
+                'description': transaction.description,
+                'from_account_name': transaction.from_account.name if transaction.from_account else None,
+                'to_account_name': transaction.to_account.name if transaction.to_account else None,
+                'stock_exit_number': transaction.stock_exit.exit_number if transaction.stock_exit else None,
+                'stock_entry_number': transaction.stock_entry.entry_number if transaction.stock_entry else None,
+                'created_by_name': transaction.created_by.fullname,
+                'created_at': transaction.created_at.isoformat(),
+            })
+        
+        return Response({
+            'count': paginator.count,
+            'next': page_obj.has_next(),
+            'previous': page_obj.has_previous(),
+            'results': transactions_data
+        })
+    
     def create(self, request, *args, **kwargs):
         """Créer un nouveau compte avec gestion d'erreurs"""
         try:
@@ -777,3 +875,232 @@ class AccountViewSet(viewsets.ModelViewSet, StoreContextMixin):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+
+class InvoiceViewSet(viewsets.ModelViewSet, StoreContextMixin):
+    """ViewSet pour la gestion des factures"""
+    serializer_class = InvoiceSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['invoice_number', 'customer__name', 'customer_name']
+    ordering = ['-created_at']
+    
+    def get_queryset(self):
+        queryset = Invoice.objects.select_related(
+            'stock_exit', 'stock_exit__warehouse', 'customer'
+        ).prefetch_related('stock_exit__items__product')
+        
+        # Filtrer par store via le stock_exit -> warehouse -> store
+        if self.store:
+            queryset = queryset.filter(stock_exit__warehouse__store=self.store)
+        else:
+            queryset = queryset.none()
+            
+        return queryset.order_by('-created_at')
+    
+    @action(detail=True, methods=['get'], url_path='print-data')
+    def print_data(self, request, pk=None):
+        """Retourne les données formatées pour l'impression de la facture"""
+        invoice = self.get_object()
+        
+        # Données de la boutique
+        store_data = {
+            'name': invoice.stock_exit.warehouse.store.name,
+            'description': invoice.stock_exit.warehouse.store.description,
+        }
+        
+        # Données du client
+        customer_data = {
+            'name': invoice.customer.name if invoice.customer else invoice.customer_name,
+            'phone': invoice.customer.phone if invoice.customer else None,
+            'email': invoice.customer.email if invoice.customer else None,
+            'address': invoice.customer.address if invoice.customer else None,
+        }
+        
+        # Données des articles
+        items_data = []
+        for item in invoice.stock_exit.items.all():
+            items_data.append({
+                'product_reference': item.product.reference,
+                'product_name': item.product.name,
+                'quantity': item.quantity,
+                'unit_price': str(item.sale_price),
+                'total_price': str(item.total_price)
+            })
+        
+        # Données complètes de la facture
+        invoice_data = {
+            'invoice_number': invoice.invoice_number,
+            'date': invoice.created_at.strftime('%d/%m/%Y'),
+            'time': invoice.created_at.strftime('%H:%M'),
+            'total_amount': str(invoice.total_amount),
+            'warehouse': invoice.stock_exit.warehouse.name,
+            'created_by': invoice.stock_exit.created_by.fullname,
+            'store': store_data,
+            'customer': customer_data,
+            'items': items_data,
+            'notes': invoice.stock_exit.notes
+        }
+        
+        return Response(invoice_data)
+    
+    @action(detail=True, methods=['get'], url_path='download-pdf')
+    def download_pdf(self, request, pk=None):
+        """Génère et retourne le PDF de la facture"""
+        invoice = self.get_object()
+        
+        # Préparer le contexte pour le template
+        context = {
+            'invoice': invoice,
+            'store': {
+                'name': invoice.stock_exit.warehouse.store.name,
+                'address': invoice.stock_exit.warehouse.store.description or 'Adresse non renseignée',
+                'phone': 'Téléphone non renseigné',  # Vous pouvez ajouter ce champ au modèle Store
+                'email': 'Email non renseigné',    # Vous pouvez ajouter ce champ au modèle Store
+            },
+            'customer': {
+                'name': invoice.customer.name if invoice.customer else invoice.customer_name,
+                'phone': invoice.customer.phone if invoice.customer else 'Non renseigné',
+                'email': invoice.customer.email if invoice.customer else 'Non renseigné',
+                'address': invoice.customer.address if invoice.customer else 'Non renseignée',
+            },
+            'items': []
+        }
+        
+        # Préparer les articles
+        for item in invoice.stock_exit.items.all():
+            context['items'].append({
+                'product': {
+                    'name': item.product.name,
+                    'barcode': item.product.reference
+                },
+                'quantity': item.quantity,
+                'unit_price': item.sale_price,
+                'total_amount': item.total_price
+            })
+        
+        # Calculer les totaux
+        subtotal = sum(float(item['total_amount']) for item in context['items'])
+        tax_rate = 0.18  # TVA 18%
+        tax_amount = subtotal * tax_rate
+        total_amount = subtotal + tax_amount
+        
+        context.update({
+            'subtotal': subtotal,
+            'tax_amount': tax_amount,
+            'total_amount': total_amount,
+        })
+        
+        # Rendre le template HTML
+        html_string = render_to_string('invoice_pdf.html', context)
+        
+        # Générer le PDF avec WeasyPrint
+        html = HTML(string=html_string)
+        pdf_buffer = io.BytesIO()
+        html.write_pdf(pdf_buffer)
+        pdf_buffer.seek(0)
+        
+        # Créer la réponse HTTP avec le PDF
+        response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="facture_{invoice.invoice_number}.pdf"'
+        
+        return response
+    
+    def create(self, request, *args, **kwargs):
+        return Response(
+            {'error': 'Les factures sont créées automatiquement avec les bons de sortie'},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+    
+    def update(self, request, *args, **kwargs):
+        return Response(
+            {'error': 'Les factures ne peuvent pas être modifiées'},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+    
+    def destroy(self, request, *args, **kwargs):
+        return Response(
+            {'error': 'Les factures ne peuvent pas être supprimées'},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED
+        )
+
+
+class FinancialTransactionViewSet(viewsets.ModelViewSet, StoreContextMixin):
+    """
+    ViewSet pour la gestion des transactions financières
+    """
+    serializer_class = FinancialTransactionSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['transaction_type', 'from_account', 'to_account']
+    search_fields = ['description', 'transaction_number']
+    ordering_fields = ['created_at', 'amount']
+    ordering = ['-created_at']
+
+    def get_queryset(self):
+        """
+        Filtre les transactions par boutique de l'utilisateur connecté
+        et ajoute des filtres personnalisés
+        """
+        user = self.request.user
+        
+        # Utiliser une seule requête avec Q objects au lieu d'union
+        queryset = FinancialTransaction.objects.select_related(
+            'from_account', 'to_account', 'created_by', 'stock_entry', 'stock_exit'
+        ).filter(
+            Q(from_account__store=user.store) | Q(to_account__store=user.store)
+        ).distinct().order_by('-created_at')
+
+        # Filtres personnalisés
+        account_id = self.request.query_params.get('account_id')
+        if account_id:
+            queryset = queryset.filter(
+                Q(from_account_id=account_id) | Q(to_account_id=account_id)
+            )
+
+        date_from = self.request.query_params.get('date_from')
+        if date_from:
+            queryset = queryset.filter(created_at__date__gte=date_from)
+
+        date_to = self.request.query_params.get('date_to')
+        if date_to:
+            queryset = queryset.filter(created_at__date__lte=date_to)
+
+        return queryset
+
+    def perform_create(self, serializer):
+        """
+        Associe automatiquement l'utilisateur lors de la création
+        """
+        serializer.save(created_by=self.request.user)
+
+    @action(detail=False, methods=['get'])
+    def stats(self, request):
+        """
+        Retourne les statistiques des transactions
+        """
+        queryset = self.get_queryset()
+        
+        # Calculs des totaux
+        sales = queryset.filter(transaction_type='sale')
+        purchases = queryset.filter(transaction_type='purchase')
+        transfers_in = queryset.filter(transaction_type='transfer_in')
+        transfers_out = queryset.filter(transaction_type='transfer_out')
+        
+        total_sales = sales.aggregate(total=Sum('amount'))['total'] or 0
+        total_purchases = purchases.aggregate(total=Sum('amount'))['total'] or 0
+        total_transfers_in = transfers_in.aggregate(total=Sum('amount'))['total'] or 0
+        total_transfers_out = transfers_out.aggregate(total=Sum('amount'))['total'] or 0
+        
+        return Response({
+            'total_transactions': queryset.count(),
+            'total_sales': total_sales,
+            'total_purchases': total_purchases,
+            'total_transfers_in': total_transfers_in,
+            'total_transfers_out': total_transfers_out,
+            'net_balance': (total_sales + total_transfers_in) - (total_purchases + total_transfers_out),
+            'sales_count': sales.count(),
+            'purchases_count': purchases.count(),
+            'transfers_in_count': transfers_in.count(),
+            'transfers_out_count': transfers_out.count(),
+        })

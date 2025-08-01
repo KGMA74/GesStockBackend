@@ -164,6 +164,8 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     unit = models.CharField(max_length=20, default='pièce')  # pièce, kg, litre, etc.
+    price = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))  # Prix d'achat
+    sale_price = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))  # Prix de vente
     min_stock_alert = models.PositiveIntegerField(default=5)
     
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='products')
@@ -235,6 +237,7 @@ class StockEntry(models.Model):
     entry_number = models.CharField(max_length=50, unique=True)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name='stock_entries')
     warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='stock_entries')
+    account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='stock_entries', blank=True, null=True)  # Compte source pour le paiement
     total_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
     notes = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_stock_entries')
@@ -297,6 +300,7 @@ class StockExit(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='stock_exits', blank=True, null=True)
     customer_name = models.CharField(max_length=100, blank=True, null=True)  # Pour clients non enregistrés
     warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='stock_exits')
+    account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='stock_exits', blank=True, null=True)  # Compte de destination des encaissements
     total_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
     notes = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_stock_exits')
