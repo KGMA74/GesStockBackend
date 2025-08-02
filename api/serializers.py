@@ -2,7 +2,8 @@ from rest_framework import serializers
 from djoser.serializers import UserSerializer, SendEmailResetSerializer
 from djoser.conf import settings
 from django.contrib.auth import get_user_model
-from .models import Store, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, Account, Invoice, FinancialTransaction
+from decimal import Decimal
+from .models import Store, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, Account, Invoice, FinancialTransaction, StockTransfer, StockTransferItem
 # Permission
 import random
 import string
@@ -145,6 +146,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         exclude = ['store']
+        read_only_fields = ['debt']  # La dette est calculée automatiquement
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -188,10 +190,17 @@ class StockEntrySerializer(serializers.ModelSerializer):
 
 class StockExitItemSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(source='product.name', read_only=True)
+    product_sale_price = serializers.DecimalField(source='product.sale_price', max_digits=10, decimal_places=2, read_only=True)
     
     class Meta:
         model = StockExitItem
-        fields = ['id', 'product', 'product_name', 'quantity', 'sale_price', 'total_price']
+        fields = ['id', 'product', 'product_name', 'product_sale_price', 'quantity', 'sale_price', 'total_price']
+        
+    def validate(self, data):
+        # Si le prix de vente n'est pas fourni, utiliser celui du produit
+        if 'product' in data and ('sale_price' not in data or not data.get('sale_price')):
+            data['sale_price'] = data['product'].sale_price
+        return data
 
 
 class StockExitSerializer(serializers.ModelSerializer):
@@ -201,6 +210,8 @@ class StockExitSerializer(serializers.ModelSerializer):
     account_type = serializers.CharField(source='account.account_type', read_only=True)
     created_by_name = serializers.CharField(source='created_by.fullname', read_only=True)
     items = StockExitItemSerializer(many=True, read_only=True)
+    payment_status = serializers.CharField(read_only=True)
+    is_fully_paid = serializers.BooleanField(read_only=True)
     
     class Meta:
         model = StockExit
@@ -230,6 +241,7 @@ class StockExitFormSerializer(serializers.Serializer):
     customer_name = serializers.CharField(required=False, allow_blank=True)
     warehouse = serializers.IntegerField()
     account = serializers.IntegerField(required=False)  # Compte de destination
+    paid_amount = serializers.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))  # Montant payé par le client
     notes = serializers.CharField(required=False, allow_blank=True)
     items = serializers.ListField(
         child=serializers.DictField(
@@ -314,3 +326,55 @@ class FinancialTransactionSerializer(serializers.ModelSerializer):
                 'customer': obj.stock_exit.customer.name if obj.stock_exit.customer else obj.stock_exit.customer_name
             }
         return None
+
+
+# 🔄 SERIALIZERS POUR LES TRANSFERTS
+class StockTransferItemSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source='product.name', read_only=True)
+    product_reference = serializers.CharField(source='product.reference', read_only=True)
+    
+    class Meta:
+        model = StockTransferItem
+        fields = '__all__'
+
+
+class StockTransferSerializer(serializers.ModelSerializer):
+    from_warehouse_name = serializers.CharField(source='from_warehouse.name', read_only=True)
+    to_warehouse_name = serializers.CharField(source='to_warehouse.name', read_only=True)
+    created_by_name = serializers.CharField(source='created_by.fullname', read_only=True)
+    items = StockTransferItemSerializer(many=True, read_only=True)
+    status_display = serializers.CharField(source='get_status_display', read_only=True)
+    
+    class Meta:
+        model = StockTransfer
+        fields = '__all__'
+        read_only_fields = ['transfer_number', 'completed_at']
+
+
+class StockTransferFormSerializer(serializers.Serializer):
+    from_warehouse = serializers.IntegerField()
+    to_warehouse = serializers.IntegerField()
+    notes = serializers.CharField(required=False, allow_blank=True)
+    items = serializers.ListField(
+        child=serializers.DictField(
+            child=serializers.CharField()
+        )
+    )
+    
+    def validate(self, data):
+        """Validation personnalisée"""
+        if data.get('from_warehouse') == data.get('to_warehouse'):
+            raise serializers.ValidationError("L'entrepôt source et de destination doivent être différents")
+        
+        # Vérifier que les entrepôts appartiennent au même store
+        from .models import Warehouse
+        try:
+            from_warehouse = Warehouse.objects.get(id=data['from_warehouse'])
+            to_warehouse = Warehouse.objects.get(id=data['to_warehouse'])
+            
+            if from_warehouse.store != to_warehouse.store:
+                raise serializers.ValidationError("Les entrepôts doivent appartenir au même magasin")
+        except Warehouse.DoesNotExist:
+            raise serializers.ValidationError("Entrepôt invalide")
+        
+        return data

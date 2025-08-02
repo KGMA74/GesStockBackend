@@ -3,10 +3,10 @@ from .serializers import (
     ProductSerializer, StockEntrySerializer, StockExitSerializer,
     StockEntryFormSerializer, StockExitFormSerializer,
     SupplierSerializer, WarehouseSerializer, CustomerSerializer, AccountSerializer, InvoiceSerializer,
-    FinancialTransactionSerializer
+    FinancialTransactionSerializer, StockTransferSerializer, StockTransferFormSerializer
 )
 from django.contrib.auth import login, user_logged_in
-from .models import User, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, ProductStock, Account, Invoice, FinancialTransaction
+from .models import User, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, ProductStock, Account, Invoice, FinancialTransaction, StockTransfer, StockTransferItem
 from django.conf import settings 
 from djoser.views import UserViewSet
 from django.shortcuts import get_object_or_404
@@ -1104,3 +1104,217 @@ class FinancialTransactionViewSet(viewsets.ModelViewSet, StoreContextMixin):
             'transfers_in_count': transfers_in.count(),
             'transfers_out_count': transfers_out.count(),
         })
+
+    @action(detail=False, methods=['post'])
+    def create_service_payment(self, request):
+        """
+        Crée une transaction d'apport de service (entrée d'argent dans la caisse)
+        """
+        from .models import Account, FinancialTransaction
+        from decimal import Decimal
+        
+        # Récupérer les données
+        amount = request.data.get('amount')
+        description = request.data.get('description', '')
+        account_id = request.data.get('account_id')
+        
+        # Validation des données
+        if not amount:
+            return Response({'error': 'Le montant est requis'}, status=400)
+        
+        try:
+            amount = Decimal(str(amount))
+            if amount <= 0:
+                return Response({'error': 'Le montant doit être positif'}, status=400)
+        except (ValueError, TypeError):
+            return Response({'error': 'Montant invalide'}, status=400)
+        
+        if not description.strip():
+            return Response({'error': 'La description est requise'}, status=400)
+        
+        # Récupérer le compte de destination
+        if account_id:
+            try:
+                to_account = Account.objects.get(
+                    id=account_id,
+                    store=self.request.user.store,
+                    is_active=True
+                )
+            except Account.DoesNotExist:
+                return Response({'error': 'Compte invalide ou inactif'}, status=400)
+        else:
+            # Utiliser le premier compte de caisse actif par défaut
+            to_account = Account.objects.filter(
+                store=self.request.user.store,
+                account_type='cash',
+                is_active=True
+            ).first()
+            
+            if not to_account:
+                # Si pas de caisse, utiliser le premier compte bancaire actif
+                to_account = Account.objects.filter(
+                    store=self.request.user.store,
+                    account_type='bank',
+                    is_active=True
+                ).first()
+            
+            if not to_account:
+                return Response({'error': 'Aucun compte disponible'}, status=400)
+        
+        # Créer la transaction
+        try:
+            transaction = FinancialTransaction.objects.create(
+                transaction_type='service',
+                amount=amount,
+                to_account=to_account,
+                description=f"Apport service - {description.strip()}",
+                created_by=request.user
+            )
+            
+            # Sérialiser et retourner la transaction créée
+            from .serializers import FinancialTransactionSerializer
+            serializer = FinancialTransactionSerializer(transaction)
+            
+            return Response({
+                'success': True,
+                'message': f'Apport de service enregistré avec succès. Nouveau solde: {to_account.balance} F',
+                'transaction': serializer.data
+            }, status=201)
+            
+        except Exception as e:
+            return Response({'error': f'Erreur lors de la création: {str(e)}'}, status=500)
+
+
+# 🔄 VIEWSET POUR LES TRANSFERTS DE STOCK
+class StockTransferViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour la gestion des transferts de stock
+    """
+    serializer_class = StockTransferSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        queryset = StockTransfer.objects.filter(
+            from_warehouse__store=user.store
+        ).select_related('from_warehouse', 'to_warehouse', 'created_by').prefetch_related('items__product')
+        
+        # Filtrage par statut
+        status = self.request.query_params.get('status')
+        if status:
+            queryset = queryset.filter(status=status)
+        
+        # Filtrage par entrepôt source
+        from_warehouse = self.request.query_params.get('from_warehouse')
+        if from_warehouse:
+            queryset = queryset.filter(from_warehouse_id=from_warehouse)
+        
+        # Filtrage par entrepôt destination
+        to_warehouse = self.request.query_params.get('to_warehouse')
+        if to_warehouse:
+            queryset = queryset.filter(to_warehouse_id=to_warehouse)
+        
+        return queryset.order_by('-created_at')
+    
+    def create(self, request):
+        """Créer un nouveau transfert de stock"""
+        try:
+            # Utiliser le serializer de formulaire pour la validation
+            form_serializer = StockTransferFormSerializer(data=request.data)
+            if not form_serializer.is_valid():
+                return Response(form_serializer.errors, status=400)
+            
+            validated_data = form_serializer.validated_data
+            
+            with transaction.atomic():
+                # Créer le transfert
+                stock_transfer = StockTransfer.objects.create(
+                    from_warehouse_id=validated_data['from_warehouse'],
+                    to_warehouse_id=validated_data['to_warehouse'],
+                    notes=validated_data.get('notes', ''),
+                    created_by=request.user
+                )
+                
+                # Traiter les articles
+                items = validated_data.get('items', [])
+                for item_data in items:
+                    product_id = int(item_data['product'])
+                    quantity = int(item_data['quantity'])
+                    
+                    # Vérifier que le produit existe
+                    try:
+                        product = Product.objects.get(id=product_id)
+                    except Product.DoesNotExist:
+                        raise ValidationError(f"Produit avec l'ID {product_id} introuvable")
+                    
+                    # Vérifier le stock disponible dans l'entrepôt source
+                    try:
+                        source_stock = ProductStock.objects.get(
+                            product=product,
+                            warehouse_id=validated_data['from_warehouse']
+                        )
+                        if source_stock.quantity < quantity:
+                            raise ValidationError(f"Stock insuffisant pour {product.reference}. Disponible: {source_stock.quantity}, demandé: {quantity}")
+                    except ProductStock.DoesNotExist:
+                        raise ValidationError(f"Aucun stock disponible pour {product.reference} dans l'entrepôt source")
+                    
+                    # Créer l'article de transfert
+                    StockTransferItem.objects.create(
+                        stock_transfer=stock_transfer,
+                        product=product,
+                        quantity=quantity
+                    )
+                
+                # Sérialiser et retourner le transfert créé
+                serializer = self.get_serializer(stock_transfer)
+                return Response({
+                    'success': True,
+                    'message': f'Transfert {stock_transfer.transfer_number} créé avec succès',
+                    'transfer': serializer.data
+                }, status=201)
+                
+        except ValidationError as e:
+            return Response({'error': str(e)}, status=400)
+        except Exception as e:
+            return Response({'error': f'Erreur lors de la création: {str(e)}'}, status=500)
+    
+    @action(detail=True, methods=['post'])
+    def complete(self, request, pk=None):
+        """Terminer un transfert (exécuter le mouvement de stock)"""
+        try:
+            transfer = self.get_object()
+            transfer.complete_transfer()
+            
+            serializer = self.get_serializer(transfer)
+            return Response({
+                'success': True,
+                'message': f'Transfert {transfer.transfer_number} terminé avec succès',
+                'transfer': serializer.data
+            })
+            
+        except ValueError as e:
+            return Response({'error': str(e)}, status=400)
+        except Exception as e:
+            return Response({'error': f'Erreur lors de la completion: {str(e)}'}, status=500)
+    
+    @action(detail=True, methods=['post'])
+    def cancel(self, request, pk=None):
+        """Annuler un transfert"""
+        try:
+            transfer = self.get_object()
+            
+            if transfer.status != 'pending':
+                return Response({'error': 'Seuls les transferts en attente peuvent être annulés'}, status=400)
+            
+            transfer.status = 'cancelled'
+            transfer.save()
+            
+            serializer = self.get_serializer(transfer)
+            return Response({
+                'success': True,
+                'message': f'Transfert {transfer.transfer_number} annulé',
+                'transfer': serializer.data
+            })
+            
+        except Exception as e:
+            return Response({'error': f'Erreur lors de l\'annulation: {str(e)}'}, status=500)

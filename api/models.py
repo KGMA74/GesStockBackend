@@ -145,12 +145,26 @@ class Customer(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
+    debt = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'), validators=[MinValueValidator(Decimal('0.00'))])  # Montant dû par le client
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='customers')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.name
+        return f"{self.name} - Dette: {self.debt} F"
+    
+    def add_debt(self, amount):
+        """Ajouter une dette au client"""
+        self.debt += amount
+        self.save()
+    
+    def pay_debt(self, amount):
+        """Payer une partie ou la totalité de la dette"""
+        if amount > self.debt:
+            raise ValueError(f"Le montant payé ({amount}) ne peut pas être supérieur à la dette ({self.debt})")
+        self.debt -= amount
+        self.save()
+        return self.debt  # Retourne la dette restante
     
     class Meta:
         unique_together = [['name', 'phone', 'store']]
@@ -301,7 +315,9 @@ class StockExit(models.Model):
     customer_name = models.CharField(max_length=100, blank=True, null=True)  # Pour clients non enregistrés
     warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='stock_exits')
     account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='stock_exits', blank=True, null=True)  # Compte de destination des encaissements
-    total_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    total_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))  # Montant total à payer
+    paid_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))  # Montant payé par le client
+    remaining_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))  # Montant restant dû
     notes = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_stock_exits')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -311,6 +327,9 @@ class StockExit(models.Model):
         return f"Sortie {self.exit_number} - {customer_display}"
     
     def save(self, *args, **kwargs):
+        # Éviter la mise à jour automatique de la dette si on utilise add_payment
+        skip_debt_update = kwargs.pop('skip_debt_update', False)
+        
         if not self.exit_number:
             # Génération automatique du numéro de sortie
             last_exit = StockExit.objects.filter(
@@ -321,7 +340,63 @@ class StockExit(models.Model):
                 self.exit_number = f"SOR-{self.warehouse.store.id}-{last_number + 1:05d}"
             else:
                 self.exit_number = f"SOR-{self.warehouse.store.id}-00001"
+        
+        # Calculer le montant restant
+        old_remaining = Decimal('0.00')
+        if self.pk and not skip_debt_update:
+            # Obtenir l'ancienne valeur pour calculer la différence
+            try:
+                old_instance = StockExit.objects.get(pk=self.pk)
+                old_remaining = old_instance.remaining_amount
+            except StockExit.DoesNotExist:
+                pass
+        
+        self.remaining_amount = self.total_amount - self.paid_amount
+        
+        # Si il y a un client enregistré, gérer sa dette (sauf si explicitement évité)
+        if self.customer and not skip_debt_update:
+            debt_difference = self.remaining_amount - old_remaining
+            if debt_difference != 0:
+                self.customer.debt += debt_difference
+                self.customer.save()
+        
         super().save(*args, **kwargs)
+    
+    def add_payment(self, amount):
+        """Ajouter un paiement à cette vente"""
+        if amount <= 0:
+            raise ValueError("Le montant du paiement doit être positif")
+        
+        if self.paid_amount + amount > self.total_amount:
+            raise ValueError(f"Le paiement total ne peut pas dépasser le montant dû. Montant restant: {self.remaining_amount} F")
+        
+        old_remaining = self.remaining_amount
+        self.paid_amount += amount
+        self.remaining_amount = self.total_amount - self.paid_amount
+        
+        # Réduire la dette du client si applicable
+        if self.customer and amount > 0:
+            debt_reduction = old_remaining - self.remaining_amount
+            self.customer.debt -= debt_reduction
+            self.customer.save()
+        
+        self.save(skip_debt_update=True)  # Éviter la double mise à jour de la dette
+        return self.remaining_amount
+    
+    @property
+    def is_fully_paid(self):
+        """Vérifier si la vente est entièrement payée"""
+        return self.remaining_amount <= Decimal('0.00')
+    
+    @property
+    def payment_status(self):
+        """Statut du paiement"""
+        if self.paid_amount <= Decimal('0.00'):
+            return 'non_paye'
+        elif self.remaining_amount <= Decimal('0.00'):
+            return 'paye'
+        else:
+            return 'partiel'
     
     class Meta:
         verbose_name = "Bon de Sortie"
@@ -337,6 +412,10 @@ class StockExitItem(models.Model):
     total_price = models.DecimalField(max_digits=15, decimal_places=2)
     
     def save(self, *args, **kwargs):
+        # Si le prix de vente n'est pas défini, utiliser le sale_price du produit
+        if not self.sale_price or self.sale_price == Decimal('0.00'):
+            self.sale_price = self.product.sale_price
+        
         self.total_price = self.quantity * self.sale_price
         super().save(*args, **kwargs)
         
@@ -355,7 +434,7 @@ class StockExitItem(models.Model):
             raise ValueError(f"Aucun stock disponible pour {self.product.reference} dans l'entrepôt {self.stock_exit.warehouse.name}")
     
     def __str__(self):
-        return f"{self.product.reference} x{self.quantity}"
+        return f"{self.product.reference} x{self.quantity} à {self.sale_price} F/u"
     
     class Meta:
         unique_together = [['stock_exit', 'product']]
@@ -402,6 +481,8 @@ class FinancialTransaction(models.Model):
     TRANSACTION_TYPES = [
         ('purchase', 'Achat (Entrée Stock)'),
         ('sale', 'Vente (Sortie Stock)'),
+        ('service', 'Apport (Prestation de service)'),
+        ('expense', 'Dépense (Frais divers)'),
         ('transfer', 'Transfert entre comptes'),
         ('adjustment', 'Ajustement'),
     ]
@@ -453,4 +534,98 @@ class FinancialTransaction(models.Model):
     class Meta:
         verbose_name = "Transaction Financière"
         verbose_name_plural = "Transactions Financières"
+
+
+# 🔄 TRANSFERTS DE STOCK
+class StockTransfer(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'En attente'),
+        ('completed', 'Terminé'),
+        ('cancelled', 'Annulé'),
+    ]
+    
+    transfer_number = models.CharField(max_length=50, unique=True)
+    from_warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='outgoing_transfers')
+    to_warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='incoming_transfers')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    notes = models.TextField(blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_transfers')
+    created_at = models.DateTimeField(auto_now_add=True)
+    completed_at = models.DateTimeField(blank=True, null=True)
+    
+    def __str__(self):
+        return f"Transfert {self.transfer_number} - {self.from_warehouse.name} → {self.to_warehouse.name}"
+    
+    def save(self, *args, **kwargs):
+        if not self.transfer_number:
+            # Génération automatique du numéro de transfert
+            last_transfer = StockTransfer.objects.filter(
+                from_warehouse__store=self.from_warehouse.store
+            ).order_by('-id').first()
+            if last_transfer:
+                last_number = int(last_transfer.transfer_number.split('-')[-1])
+                self.transfer_number = f"TRF-{self.from_warehouse.store.id}-{last_number + 1:05d}"
+            else:
+                self.transfer_number = f"TRF-{self.from_warehouse.store.id}-00001"
+        super().save(*args, **kwargs)
+    
+    def complete_transfer(self):
+        """Marquer le transfert comme terminé et mettre à jour les stocks"""
+        if self.status != 'pending':
+            raise ValueError("Seuls les transferts en attente peuvent être terminés")
+        
+        from django.utils import timezone
+        
+        # Mettre à jour les stocks pour chaque article
+        for item in self.items.all():
+            # Retirer du stock source
+            source_stock = ProductStock.objects.get(
+                product=item.product,
+                warehouse=self.from_warehouse
+            )
+            if source_stock.quantity < item.quantity:
+                raise ValueError(f"Stock insuffisant pour {item.product.reference} dans {self.from_warehouse.name}")
+            
+            source_stock.quantity -= item.quantity
+            source_stock.save()
+            
+            # Ajouter au stock destination
+            dest_stock, created = ProductStock.objects.get_or_create(
+                product=item.product,
+                warehouse=self.to_warehouse,
+                defaults={'quantity': 0}
+            )
+            dest_stock.quantity += item.quantity
+            dest_stock.save()
+        
+        # Marquer comme terminé
+        self.status = 'completed'
+        self.completed_at = timezone.now()
+        self.save()
+    
+    class Meta:
+        verbose_name = "Transfert de Stock"
+        verbose_name_plural = "Transferts de Stock"
+
+
+# 🔄 ARTICLES DES TRANSFERTS
+class StockTransferItem(models.Model):
+    stock_transfer = models.ForeignKey(StockTransfer, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    
+    def save(self, *args, **kwargs):
+        # Vérifier que le transfert n'est pas encore terminé
+        if self.stock_transfer.status == 'completed':
+            raise ValueError("Impossible de modifier un transfert terminé")
+        
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"{self.product.reference} x{self.quantity} - {self.stock_transfer.transfer_number}"
+    
+    class Meta:
+        unique_together = [['stock_transfer', 'product']]
+        verbose_name = "Article de Transfert"
+        verbose_name_plural = "Articles de Transfert"
     

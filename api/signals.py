@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from decimal import Decimal
 from .models import (
     StockExit, Invoice, StockEntry, FinancialTransaction, 
-    StockEntryItem, StockExitItem
+    StockEntryItem, StockExitItem, StockTransfer, StockTransferItem
 )
 
 
@@ -219,5 +219,15 @@ def update_stock_exit_total_on_item_change(sender, instance, **kwargs):
         item.total_price for item in stock_exit.items.all()
     )
     if stock_exit.total_amount != total:
+        # Calculer la différence pour la dette avant de mettre à jour
+        if stock_exit.customer:
+            old_remaining = stock_exit.remaining_amount
+            new_remaining = total - stock_exit.paid_amount
+            debt_difference = new_remaining - old_remaining
+            if debt_difference != 0:
+                stock_exit.customer.debt += debt_difference
+                stock_exit.customer.save()
+        
         stock_exit.total_amount = total
-        stock_exit.save(update_fields=['total_amount'])
+        stock_exit.remaining_amount = total - stock_exit.paid_amount
+        stock_exit.save(update_fields=['total_amount', 'remaining_amount'], skip_debt_update=True)

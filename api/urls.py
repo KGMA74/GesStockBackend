@@ -8,7 +8,7 @@ from .views import (
     LogoutView, testViewSet,
     ProductViewSet, StockEntryViewSet, StockExitViewSet,
     CustomerViewSet, SupplierViewSet, WarehouseViewSet, AccountViewSet, InvoiceViewSet,
-    FinancialTransactionViewSet,
+    FinancialTransactionViewSet, StockTransferViewSet,
     stock_stats
 )
 
@@ -22,6 +22,7 @@ router.register(r'accounts', AccountViewSet, basename='account')
 router.register(r'invoices', InvoiceViewSet, basename='invoice')
 router.register(r'stock-entries', StockEntryViewSet, basename='stock-entry')
 router.register(r'stock-exits', StockExitViewSet, basename='stock-exit')
+router.register(r'stock-transfers', StockTransferViewSet, basename='stock-transfer')
 router.register(r'financial-transactions', FinancialTransactionViewSet, basename='financial-transaction')
 
 
