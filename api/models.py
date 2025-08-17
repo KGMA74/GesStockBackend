@@ -483,6 +483,7 @@ class FinancialTransaction(models.Model):
         ('sale', 'Vente (Sortie Stock)'),
         ('service', 'Apport (Prestation de service)'),
         ('expense', 'Dépense (Frais divers)'),
+        ('debt_payment', 'Remboursement de dette'),
         ('transfer', 'Transfert entre comptes'),
         ('adjustment', 'Ajustement'),
     ]
@@ -496,6 +497,7 @@ class FinancialTransaction(models.Model):
     # Liens vers les documents source
     stock_entry = models.ForeignKey(StockEntry, on_delete=models.CASCADE, related_name='transactions', blank=True, null=True)
     stock_exit = models.ForeignKey(StockExit, on_delete=models.CASCADE, related_name='transactions', blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='debt_payments', blank=True, null=True)
     
     description = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_transactions')

@@ -27,7 +27,7 @@ def create_financial_transaction_for_purchase(sender, instance, created, **kwarg
     Crée une transaction financière pour les achats (bons d'entrée)
     et met à jour automatiquement le solde du compte spécifié
     """
-    print(f"🚀 Signal déclenché pour StockEntry {instance.entry_number} - created: {created}")
+    print(f" Signal déclenché pour StockEntry {instance.entry_number} - created: {created}")
     
     # Créer la transaction si:
     # 1. C'est une nouvelle création ET le montant > 0 (rare car total_amount initialement à 0)
@@ -36,7 +36,7 @@ def create_financial_transaction_for_purchase(sender, instance, created, **kwarg
     
     if created and instance.total_amount > 0:
         should_create_transaction = True
-        print("✅ Nouvelle création avec montant > 0")
+        print(" Nouvelle création avec montant > 0")
     elif not created and instance.total_amount > 0:
         # Vérifier s'il n'y a pas déjà une transaction pour ce bon d'entrée
         existing_transaction = FinancialTransaction.objects.filter(
@@ -46,7 +46,7 @@ def create_financial_transaction_for_purchase(sender, instance, created, **kwarg
         
         if not existing_transaction:
             should_create_transaction = True
-            print("✅ Mise à jour avec montant > 0, pas de transaction existante")
+            print(" Mise à jour avec montant > 0, pas de transaction existante")
         else:
             print("⏭️ Transaction déjà existante, ignore")
     
@@ -79,7 +79,7 @@ def create_financial_transaction_for_purchase(sender, instance, created, **kwarg
             else:
                 print("❌ Aucun compte disponible pour cette boutique!")
         else:
-            print(f"✅ Compte spécifié: {from_account.name}")
+            print(f" Compte spécifié: {from_account.name}")
         
         transaction = FinancialTransaction.objects.create(
     
@@ -91,8 +91,8 @@ def create_financial_transaction_for_purchase(sender, instance, created, **kwarg
             created_by=instance.created_by
         )
         
-        print(f"✅ Transaction d'achat créée: {transaction.transaction_number}")
-        print(f"💰 Nouveau solde du compte {from_account.name}: {from_account.balance}")
+        print(f" Transaction d'achat créée: {transaction.transaction_number}")
+        print(f" Nouveau solde du compte {from_account.name}: {from_account.balance}")
 
 
 @receiver(post_save, sender=StockExit)
@@ -101,7 +101,7 @@ def create_financial_transaction_for_sale(sender, instance, created, **kwargs):
     Crée une transaction financière pour les ventes (bons de sortie)
     et met à jour automatiquement le solde du compte spécifié
     """
-    print(f"🚀 Signal déclenché pour StockExit {instance.exit_number} - created: {created}")
+    print(f" Signal déclenché pour StockExit {instance.exit_number} - created: {created}")
     
     # Créer la transaction si:
     # 1. C'est une nouvelle création ET le montant > 0 (rare car total_amount initialement à 0)
@@ -110,7 +110,7 @@ def create_financial_transaction_for_sale(sender, instance, created, **kwargs):
     
     if created and instance.total_amount > 0:
         should_create_transaction = True
-        print("✅ Nouvelle création avec montant > 0")
+        print(" Nouvelle création avec montant > 0")
     elif not created and instance.total_amount > 0:
         # Vérifier s'il n'y a pas déjà une transaction pour ce bon de sortie
         existing_transaction = FinancialTransaction.objects.filter(
@@ -120,13 +120,13 @@ def create_financial_transaction_for_sale(sender, instance, created, **kwargs):
         
         if not existing_transaction:
             should_create_transaction = True
-            print("✅ Mise à jour avec montant > 0, pas de transaction existante")
+            print(" Mise à jour avec montant > 0, pas de transaction existante")
         else:
             print("⏭️ Transaction déjà existante, ignore")
     
     if should_create_transaction:
         customer_name = instance.customer.name if instance.customer else instance.customer_name
-        print(f"💰 Création d'une transaction financière pour {customer_name} - Montant: {instance.total_amount}")
+        print(f" Création d'une transaction financière pour {customer_name} - Montant: {instance.total_amount}")
         
         # Détermine le compte de destination
         to_account = instance.account
@@ -153,7 +153,7 @@ def create_financial_transaction_for_sale(sender, instance, created, **kwargs):
             else:
                 print("❌ Aucun compte disponible pour cette boutique!")
         else:
-            print(f"✅ Compte spécifié: {to_account.name}")
+            print(f" Compte spécifié: {to_account.name}")
         
         transaction = FinancialTransaction.objects.create(
             transaction_type='sale',
@@ -164,8 +164,8 @@ def create_financial_transaction_for_sale(sender, instance, created, **kwargs):
             created_by=instance.created_by
         )
         
-        print(f"✅ Transaction financière créée: {transaction.transaction_number}")
-        print(f"💰 Nouveau solde du compte {to_account.name}: {to_account.balance}")
+        print(f" Transaction financière créée: {transaction.transaction_number}")
+        print(f" Nouveau solde du compte {to_account.name}: {to_account.balance}")
         
         # La mise à jour du solde du compte se fait automatiquement 
         # dans la méthode save() de FinancialTransaction
@@ -231,3 +231,20 @@ def update_stock_exit_total_on_item_change(sender, instance, **kwargs):
         stock_exit.total_amount = total
         stock_exit.remaining_amount = total - stock_exit.paid_amount
         stock_exit.save(update_fields=['total_amount', 'remaining_amount'], skip_debt_update=True)
+
+
+@receiver(post_save, sender=FinancialTransaction)
+def update_customer_debt_on_payment(sender, instance, created, **kwargs):
+    """
+    Met à jour automatiquement la dette du client lors d'un remboursement
+    """
+    if created and instance.transaction_type == 'debt_payment' and instance.customer:
+        print(f" Remboursement de dette détecté pour {instance.customer.name} - Montant: {instance.amount}")
+        
+        # Réduire la dette du client
+        instance.customer.debt -= instance.amount
+        if instance.customer.debt < 0:
+            instance.customer.debt = 0  # La dette ne peut pas être négative
+        
+        instance.customer.save()
+        print(f" Dette mise à jour pour {instance.customer.name} - Nouvelle dette: {instance.customer.debt}")

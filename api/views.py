@@ -3,7 +3,8 @@ from .serializers import (
     ProductSerializer, StockEntrySerializer, StockExitSerializer,
     StockEntryFormSerializer, StockExitFormSerializer,
     SupplierSerializer, WarehouseSerializer, CustomerSerializer, AccountSerializer, InvoiceSerializer,
-    FinancialTransactionSerializer, StockTransferSerializer, StockTransferFormSerializer
+    FinancialTransactionSerializer, StockTransferSerializer, StockTransferFormSerializer,
+    DebtPaymentSerializer
 )
 from django.contrib.auth import login, user_logged_in
 from .models import User, Product, StockEntry, StockExit, StockEntryItem, StockExitItem, Supplier, Warehouse, Customer, ProductStock, Account, Invoice, FinancialTransaction, StockTransfer, StockTransferItem
@@ -345,7 +346,13 @@ class ProductViewSet(viewsets.ModelViewSet, StoreContextMixin):
         low_stock_products = []
         
         for product in queryset:
-            current_stock = product.total_stock if hasattr(product, 'total_stock') else 0
+            # Calculer le stock actuel de manière similaire à stock_stats
+            entries = StockEntryItem.objects.filter(product=product).aggregate(
+                total=Sum('quantity'))['total'] or 0
+            exits = StockExitItem.objects.filter(product=product).aggregate(
+                total=Sum('quantity'))['total'] or 0
+            current_stock = entries - exits
+            
             if current_stock <= product.min_stock_alert:
                 low_stock_products.append(product)
         
@@ -409,6 +416,54 @@ class CustomerViewSet(viewsets.ModelViewSet, StoreContextMixin):
         
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+    
+    @action(detail=True, methods=['post'], url_path='pay-debt')
+    def pay_debt(self, request, pk=None):
+        """Enregistrer un remboursement de dette client"""
+        from .serializers import DebtPaymentSerializer
+        
+        try:
+            customer = self.get_object()
+            
+            if customer.debt <= 0:
+                return Response(
+                    {'error': 'Ce client n\'a pas de dette à rembourser'}, 
+                    status=400
+                )
+            
+            serializer = DebtPaymentSerializer(data=request.data)
+            if serializer.is_valid():
+                validated_data = serializer.validated_data
+                
+                # Créer la transaction financière
+                from .models import Account, FinancialTransaction
+                account = Account.objects.get(id=validated_data['account'])
+                
+                transaction = FinancialTransaction.objects.create(
+                    transaction_type='debt_payment',
+                    amount=validated_data['amount'],
+                    to_account=account,  # L'argent entre dans ce compte
+                    customer=customer,
+                    description=validated_data.get('description', f'Remboursement de dette - {customer.name}'),
+                    created_by=request.user
+                )
+                
+                # Le signal update_customer_debt_on_payment se chargera de mettre à jour la dette
+                
+                # Retourner les informations mises à jour
+                customer.refresh_from_db()
+                return Response({
+                    'success': True,
+                    'message': f'Remboursement de {validated_data["amount"]} F enregistré',
+                    'transaction_number': transaction.transaction_number,
+                    'remaining_debt': customer.debt,
+                    'account_balance': account.balance
+                })
+            
+            return Response(serializer.errors, status=400)
+            
+        except Exception as e:
+            return Response({'error': f'Erreur lors du remboursement: {str(e)}'}, status=500)
 
 
 class SupplierViewSet(viewsets.ModelViewSet, StoreContextMixin):
@@ -475,6 +530,10 @@ class WarehouseViewSet(viewsets.ModelViewSet, StoreContextMixin):
 class StockEntryViewSet(viewsets.ModelViewSet, StoreContextMixin):
     serializer_class = StockEntrySerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['entry_number', 'supplier__name', 'warehouse__name', 'notes']
+    ordering_fields = ['created_at', 'total_amount', 'entry_number']
+    ordering = ['-created_at']
     
     def get_queryset(self):
         queryset = StockEntry.objects.all().order_by('-created_at')
@@ -554,6 +613,10 @@ class StockEntryViewSet(viewsets.ModelViewSet, StoreContextMixin):
 class StockExitViewSet(viewsets.ModelViewSet, StoreContextMixin):
     serializer_class = StockExitSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['exit_number', 'customer__name', 'customer_name', 'warehouse__name', 'notes']
+    ordering_fields = ['created_at', 'total_amount', 'exit_number']
+    ordering = ['-created_at']
     
     def get_queryset(self):
         queryset = StockExit.objects.all().order_by('-created_at')

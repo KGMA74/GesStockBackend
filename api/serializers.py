@@ -300,12 +300,21 @@ class FinancialTransactionSerializer(serializers.ModelSerializer):
     stock_entry = serializers.SerializerMethodField()
     stock_exit = serializers.SerializerMethodField()
     
+    # Champs supplémentaires pour le frontend
+    transaction_type_display = serializers.CharField(source='get_transaction_type_display', read_only=True)
+    from_account_name = serializers.CharField(source='from_account.name', read_only=True)
+    to_account_name = serializers.CharField(source='to_account.name', read_only=True)
+    created_by_name = serializers.CharField(source='created_by.fullname', read_only=True)
+    stock_entry_number = serializers.SerializerMethodField()
+    stock_exit_number = serializers.SerializerMethodField()
+    
     class Meta:
         model = FinancialTransaction
         fields = [
-            'id', 'transaction_number', 'transaction_type', 'amount', 
-            'description', 'from_account', 'to_account', 'stock_entry', 
-            'stock_exit', 'created_by', 'created_at'
+            'id', 'transaction_number', 'transaction_type', 'transaction_type_display', 
+            'amount', 'description', 'from_account', 'to_account', 'from_account_name', 
+            'to_account_name', 'stock_entry', 'stock_exit', 'stock_entry_number', 
+            'stock_exit_number', 'created_by', 'created_by_name', 'created_at'
         ]
         read_only_fields = ['id', 'transaction_number', 'created_at']
     
@@ -326,6 +335,12 @@ class FinancialTransactionSerializer(serializers.ModelSerializer):
                 'customer': obj.stock_exit.customer.name if obj.stock_exit.customer else obj.stock_exit.customer_name
             }
         return None
+    
+    def get_stock_entry_number(self, obj):
+        return obj.stock_entry.entry_number if obj.stock_entry else None
+    
+    def get_stock_exit_number(self, obj):
+        return obj.stock_exit.exit_number if obj.stock_exit else None
 
 
 # 🔄 SERIALIZERS POUR LES TRANSFERTS
@@ -376,5 +391,47 @@ class StockTransferFormSerializer(serializers.Serializer):
                 raise serializers.ValidationError("Les entrepôts doivent appartenir au même magasin")
         except Warehouse.DoesNotExist:
             raise serializers.ValidationError("Entrepôt invalide")
+        
+        return data
+
+
+class DebtPaymentSerializer(serializers.Serializer):
+    """Serializer pour les remboursements de dette client"""
+    customer = serializers.IntegerField()
+    amount = serializers.DecimalField(max_digits=15, decimal_places=2, min_value=0.01)
+    account = serializers.IntegerField()
+    description = serializers.CharField(max_length=500, required=False)
+    
+    def validate_customer(self, value):
+        """Valider que le client existe et a des dettes"""
+        from .models import Customer
+        try:
+            customer = Customer.objects.get(id=value)
+            if customer.debt <= 0:
+                raise serializers.ValidationError("Ce client n'a pas de dette à rembourser")
+            return value
+        except Customer.DoesNotExist:
+            raise serializers.ValidationError("Client introuvable")
+    
+    def validate_account(self, value):
+        """Valider que le compte existe et est actif"""
+        from .models import Account
+        try:
+            account = Account.objects.get(id=value)
+            if not account.is_active:
+                raise serializers.ValidationError("Ce compte n'est pas actif")
+            return value
+        except Account.DoesNotExist:
+            raise serializers.ValidationError("Compte introuvable")
+    
+    def validate(self, data):
+        """Validation globale"""
+        from .models import Customer
+        customer = Customer.objects.get(id=data['customer'])
+        
+        if data['amount'] > customer.debt:
+            raise serializers.ValidationError(
+                f"Le montant à rembourser ({data['amount']}) ne peut pas dépasser la dette actuelle ({customer.debt})"
+            )
         
         return data
