@@ -25,6 +25,8 @@ from djoser.social.views import ProviderAuthView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from .authentication import CustomAuthenticationBackend
+from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from weasyprint import HTML
@@ -1247,6 +1249,77 @@ class FinancialTransactionViewSet(viewsets.ModelViewSet, StoreContextMixin):
         except Exception as e:
             return Response({'error': f'Erreur lors de la création: {str(e)}'}, status=500)
 
+    # Export des transactions au format Excel
+    @action(detail=False, methods=['get'])
+    def export(self, request):
+        """
+        Exporter les transactions en format Excel
+        """
+        account_id = request.query_params.get('account_id')
+        date_from = request.query_params.get('date_from')
+        date_to = request.query_params.get('date_to')
+
+        # Récupérer les transactions en fonction des paramètres
+        transactions = self.get_queryset()
+
+        if account_id:
+            transactions = transactions.filter(
+                Q(from_account_id=account_id) | Q(to_account_id=account_id)
+            )
+        if date_from:
+            transactions = transactions.filter(created_at__date__gte=date_from)
+        if date_to:
+            transactions = transactions.filter(created_at__date__lte=date_to)
+
+        # Créer le fichier Excel
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Transactions"
+
+        # Ajouter les en-têtes de colonnes
+        headers = [
+            "ID de Transaction", "Numéro de Transaction", "Montant", "Description", 
+            "Type de Transaction", "Compte Source", "Compte Cible", "Créé Par", "Créé Le"
+        ]
+
+        ws.append(headers)
+
+        # Ajouter les données des transactions
+        for transaction in transactions:
+            row = [
+                transaction.id,
+                transaction.transaction_number,
+                transaction.amount,
+                transaction.description,
+                transaction.get_transaction_type_display(),  # Affichage du type de transaction
+                transaction.from_account.name if transaction.from_account else '',
+                transaction.to_account.name if transaction.to_account else '',
+                transaction.created_by.fullname,
+                transaction.created_at.replace(tzinfo=None),
+            ]
+            ws.append(row)
+
+        # Ajuster la largeur des colonnes
+        for col in range(1, len(headers) + 1):
+            column = get_column_letter(col)
+            max_length = 0
+            for row in ws.iter_rows():
+                for cell in row:
+                    try:
+                        if len(str(cell.value)) > max_length:
+                            max_length = len(cell.value)
+                    except:
+                        pass
+            adjusted_width = (max_length + 2)
+            ws.column_dimensions[column].width = adjusted_width
+
+        # Créer une réponse HTTP avec le fichier Excel
+        response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response["Content-Disposition"] = "attachment; filename=transactions_export.xlsx"
+
+        # Enregistrer le fichier dans la réponse
+        wb.save(response)
+        return response
 
 # 🔄 VIEWSET POUR LES TRANSFERTS DE STOCK
 class StockTransferViewSet(viewsets.ModelViewSet):
