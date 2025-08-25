@@ -27,7 +27,7 @@ logger.warning(f'DEBUG mode is {"on" if DEBUG else "off"}')
 
 INSTALLED_APPS = [
     # 'daphne',
-    "unfold",
+    # "unfold",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
