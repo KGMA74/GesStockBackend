@@ -76,6 +76,9 @@ pillow==11.2.1
 Pint==0.24.4
 platformdirs==4.3.8
 prettytable==3.16.0
+psycog==0.0.1
+psycopg==3.2.9
+psycopg-binary==3.2.9
 pycparser==2.22
 pydantic==2.11.7
 pydantic-settings==2.10.1
