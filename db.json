@@ -1,0 +1,4501 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-07-29T20:09:18.859Z",
+    "user": 10,
+    "content_type": 11,
+    "object_id": "10",
+    "object_repr": "test test (test)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is staff\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-07-29T22:48:19.903Z",
+    "user": 13,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "Boutique 2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-07-29T22:49:40.874Z",
+    "user": 13,
+    "content_type": 8,
+    "object_id": "8",
+    "object_repr": "caisse 2 (Caisse) - 2000",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-07-29T22:59:08.973Z",
+    "user": 13,
+    "content_type": 12,
+    "object_id": "13",
+    "object_repr": "Entrée ENT-3-00004 - Distributeur Alimentaire ABC",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Article Bon d'Entr\\u00e9e\", \"object\": \"ORD-001 x10\"}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add blacklisted token",
+    "content_type": 6,
+    "codename": "add_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change blacklisted token",
+    "content_type": 6,
+    "codename": "change_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete blacklisted token",
+    "content_type": 6,
+    "codename": "delete_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view blacklisted token",
+    "content_type": 6,
+    "codename": "view_blacklistedtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add outstanding token",
+    "content_type": 7,
+    "codename": "add_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change outstanding token",
+    "content_type": 7,
+    "codename": "change_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete outstanding token",
+    "content_type": 7,
+    "codename": "delete_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view outstanding token",
+    "content_type": 7,
+    "codename": "view_outstandingtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add Compte",
+    "content_type": 8,
+    "codename": "add_account"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change Compte",
+    "content_type": 8,
+    "codename": "change_account"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete Compte",
+    "content_type": 8,
+    "codename": "delete_account"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view Compte",
+    "content_type": 8,
+    "codename": "view_account"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add Client",
+    "content_type": 9,
+    "codename": "add_customer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change Client",
+    "content_type": 9,
+    "codename": "change_customer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete Client",
+    "content_type": 9,
+    "codename": "delete_customer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view Client",
+    "content_type": 9,
+    "codename": "view_customer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add Boutique",
+    "content_type": 10,
+    "codename": "add_store"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change Boutique",
+    "content_type": 10,
+    "codename": "change_store"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete Boutique",
+    "content_type": 10,
+    "codename": "delete_store"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view Boutique",
+    "content_type": 10,
+    "codename": "view_store"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add Utilisateur",
+    "content_type": 11,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change Utilisateur",
+    "content_type": 11,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete Utilisateur",
+    "content_type": 11,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view Utilisateur",
+    "content_type": 11,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add Bon d'Entrée",
+    "content_type": 12,
+    "codename": "add_stockentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change Bon d'Entrée",
+    "content_type": 12,
+    "codename": "change_stockentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete Bon d'Entrée",
+    "content_type": 12,
+    "codename": "delete_stockentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view Bon d'Entrée",
+    "content_type": 12,
+    "codename": "view_stockentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add Bon de Sortie",
+    "content_type": 13,
+    "codename": "add_stockexit"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change Bon de Sortie",
+    "content_type": 13,
+    "codename": "change_stockexit"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete Bon de Sortie",
+    "content_type": 13,
+    "codename": "delete_stockexit"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view Bon de Sortie",
+    "content_type": 13,
+    "codename": "view_stockexit"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add Facture",
+    "content_type": 14,
+    "codename": "add_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change Facture",
+    "content_type": 14,
+    "codename": "change_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete Facture",
+    "content_type": 14,
+    "codename": "delete_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view Facture",
+    "content_type": 14,
+    "codename": "view_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 57,
+  "fields": {
+    "name": "Can add Transaction Financière",
+    "content_type": 15,
+    "codename": "add_financialtransaction"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 58,
+  "fields": {
+    "name": "Can change Transaction Financière",
+    "content_type": 15,
+    "codename": "change_financialtransaction"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 59,
+  "fields": {
+    "name": "Can delete Transaction Financière",
+    "content_type": 15,
+    "codename": "delete_financialtransaction"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 60,
+  "fields": {
+    "name": "Can view Transaction Financière",
+    "content_type": 15,
+    "codename": "view_financialtransaction"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 61,
+  "fields": {
+    "name": "Can add Produit",
+    "content_type": 16,
+    "codename": "add_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "Can change Produit",
+    "content_type": 16,
+    "codename": "change_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "Can delete Produit",
+    "content_type": 16,
+    "codename": "delete_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "Can view Produit",
+    "content_type": 16,
+    "codename": "view_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 65,
+  "fields": {
+    "name": "Can add Employé",
+    "content_type": 17,
+    "codename": "add_employee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 66,
+  "fields": {
+    "name": "Can change Employé",
+    "content_type": 17,
+    "codename": "change_employee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 67,
+  "fields": {
+    "name": "Can delete Employé",
+    "content_type": 17,
+    "codename": "delete_employee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 68,
+  "fields": {
+    "name": "Can view Employé",
+    "content_type": 17,
+    "codename": "view_employee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 69,
+  "fields": {
+    "name": "Can add Fournisseur",
+    "content_type": 18,
+    "codename": "add_supplier"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 70,
+  "fields": {
+    "name": "Can change Fournisseur",
+    "content_type": 18,
+    "codename": "change_supplier"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 71,
+  "fields": {
+    "name": "Can delete Fournisseur",
+    "content_type": 18,
+    "codename": "delete_supplier"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 72,
+  "fields": {
+    "name": "Can view Fournisseur",
+    "content_type": 18,
+    "codename": "view_supplier"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 73,
+  "fields": {
+    "name": "Can add Magasin/Entrepôt",
+    "content_type": 19,
+    "codename": "add_warehouse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 74,
+  "fields": {
+    "name": "Can change Magasin/Entrepôt",
+    "content_type": 19,
+    "codename": "change_warehouse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 75,
+  "fields": {
+    "name": "Can delete Magasin/Entrepôt",
+    "content_type": 19,
+    "codename": "delete_warehouse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 76,
+  "fields": {
+    "name": "Can view Magasin/Entrepôt",
+    "content_type": 19,
+    "codename": "view_warehouse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 77,
+  "fields": {
+    "name": "Can add Stock Produit",
+    "content_type": 20,
+    "codename": "add_productstock"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 78,
+  "fields": {
+    "name": "Can change Stock Produit",
+    "content_type": 20,
+    "codename": "change_productstock"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 79,
+  "fields": {
+    "name": "Can delete Stock Produit",
+    "content_type": 20,
+    "codename": "delete_productstock"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 80,
+  "fields": {
+    "name": "Can view Stock Produit",
+    "content_type": 20,
+    "codename": "view_productstock"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 81,
+  "fields": {
+    "name": "Can add Article Bon d'Entrée",
+    "content_type": 21,
+    "codename": "add_stockentryitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 82,
+  "fields": {
+    "name": "Can change Article Bon d'Entrée",
+    "content_type": 21,
+    "codename": "change_stockentryitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 83,
+  "fields": {
+    "name": "Can delete Article Bon d'Entrée",
+    "content_type": 21,
+    "codename": "delete_stockentryitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 84,
+  "fields": {
+    "name": "Can view Article Bon d'Entrée",
+    "content_type": 21,
+    "codename": "view_stockentryitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 85,
+  "fields": {
+    "name": "Can add Article Bon de Sortie",
+    "content_type": 22,
+    "codename": "add_stockexititem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 86,
+  "fields": {
+    "name": "Can change Article Bon de Sortie",
+    "content_type": 22,
+    "codename": "change_stockexititem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 87,
+  "fields": {
+    "name": "Can delete Article Bon de Sortie",
+    "content_type": 22,
+    "codename": "delete_stockexititem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 88,
+  "fields": {
+    "name": "Can view Article Bon de Sortie",
+    "content_type": 22,
+    "codename": "view_stockexititem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 89,
+  "fields": {
+    "name": "Can add Article de Transfert",
+    "content_type": 23,
+    "codename": "add_stocktransferitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 90,
+  "fields": {
+    "name": "Can change Article de Transfert",
+    "content_type": 23,
+    "codename": "change_stocktransferitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 91,
+  "fields": {
+    "name": "Can delete Article de Transfert",
+    "content_type": 23,
+    "codename": "delete_stocktransferitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 92,
+  "fields": {
+    "name": "Can view Article de Transfert",
+    "content_type": 23,
+    "codename": "view_stocktransferitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 93,
+  "fields": {
+    "name": "Can add Transfert de Stock",
+    "content_type": 24,
+    "codename": "add_stocktransfer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 94,
+  "fields": {
+    "name": "Can change Transfert de Stock",
+    "content_type": 24,
+    "codename": "change_stocktransfer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 95,
+  "fields": {
+    "name": "Can delete Transfert de Stock",
+    "content_type": 24,
+    "codename": "delete_stocktransfer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 96,
+  "fields": {
+    "name": "Can view Transfert de Stock",
+    "content_type": 24,
+    "codename": "view_stocktransfer"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "token_blacklist",
+    "model": "blacklistedtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "token_blacklist",
+    "model": "outstandingtoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "api",
+    "model": "account"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "api",
+    "model": "customer"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "api",
+    "model": "store"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "api",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "api",
+    "model": "stockentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "api",
+    "model": "stockexit"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 14,
+  "fields": {
+    "app_label": "api",
+    "model": "invoice"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 15,
+  "fields": {
+    "app_label": "api",
+    "model": "financialtransaction"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "api",
+    "model": "product"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "api",
+    "model": "employee"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 18,
+  "fields": {
+    "app_label": "api",
+    "model": "supplier"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 19,
+  "fields": {
+    "app_label": "api",
+    "model": "warehouse"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 20,
+  "fields": {
+    "app_label": "api",
+    "model": "productstock"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 21,
+  "fields": {
+    "app_label": "api",
+    "model": "stockentryitem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 22,
+  "fields": {
+    "app_label": "api",
+    "model": "stockexititem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 23,
+  "fields": {
+    "app_label": "api",
+    "model": "stocktransferitem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 24,
+  "fields": {
+    "app_label": "api",
+    "model": "stocktransfer"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "d3gcr7jtpvecsbluflhi0ol71abwfy8r",
+  "fields": {
+    "session_data": ".eJxVzEEOwiAQheG7sDYNLR1g3KkHaWZgGoiRmhZWxrtrExd2-728_6UmajVNbZN1ylGdlVGnf2MKdyn7QM_c7S6l5kA1L6W7ta0uj8sBr7_DoZJoS9_EiBCxt47CoNnODhz3wKidzASOAIfAnsCwRZAA7A2REfQ64MgSvXp_AHcrOtE:1ufbmy:c52V82hhUsxVjSbK9IXIFruL2giVrQr8ZFvCeB8fXwE",
+    "expire_date": "2025-08-09T10:06:00.372Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "tpqfly92b6etblivr2vo7k496f45hf4t",
+  "fields": {
+    "session_data": ".eJxVzMsOgjAQheF36doQehtad-qDkJnpEBpjMbSsjO-uJC5k-52c_6VG3No8blXWMSd1Vtqq0z8S8l3KvuAzd7tLaZmx5aV0t6225XE54PV3OFRmrPM34T0NdgrBuwjkwEIPTAkxCJNBEdE44QTI0SXwBAA9DWySsdrFRF69P7doO34:1ugqz6:pmjo1ljOt8MRYI1_5RkybLIfdYpfHFEosKWCZd9m_hA",
+    "expire_date": "2025-08-12T20:31:40.908Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 1,
+  "fields": {
+    "user": null,
+    "jti": "dcc621343fc54a008df9b48f512a47fb",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDEzODA5OCwiaWF0IjoxNzUzNTMzMjk4LCJqdGkiOiJkY2M2MjEzNDNmYzU0YTAwOGRmOWI0OGY1MTJhNDdmYiIsInVzZXJfaWQiOjR9._UkLHA3I_W9ht1dFPmQTsBmvZpMhRRUAo4EGkisxuV8",
+    "created_at": "2025-07-26T12:34:58.022Z",
+    "expires_at": "2025-08-02T12:34:58Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 2,
+  "fields": {
+    "user": null,
+    "jti": "c49b2dc99fd64e61961fee8be235a01f",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDEzOTAxMSwiaWF0IjoxNzUzNTM0MjExLCJqdGkiOiJjNDliMmRjOTlmZDY0ZTYxOTYxZmVlOGJlMjM1YTAxZiIsInVzZXJfaWQiOjR9.QKfvwJIvHDeiwwdTzxV6sOb2a4CLOHHsfJDVVb8MGsY",
+    "created_at": "2025-07-26T12:50:11.620Z",
+    "expires_at": "2025-08-02T12:50:11Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 3,
+  "fields": {
+    "user": null,
+    "jti": "1926b4e299d343079f19f0b542aaaaca",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE0MDYwMSwiaWF0IjoxNzUzNTM1ODAxLCJqdGkiOiIxOTI2YjRlMjk5ZDM0MzA3OWYxOWYwYjU0MmFhYWFjYSIsInVzZXJfaWQiOjR9.wdG8EbTGJp836FXa0SIa1qTY2Yju0B-pH29GbIdG1bE",
+    "created_at": "2025-07-26T13:16:41.403Z",
+    "expires_at": "2025-08-02T13:16:41Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 4,
+  "fields": {
+    "user": null,
+    "jti": "ce4f1787b49d433997fd8ff3725f6d84",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE0MDY4OCwiaWF0IjoxNzUzNTM1ODg4LCJqdGkiOiJjZTRmMTc4N2I0OWQ0MzM5OTdmZDhmZjM3MjVmNmQ4NCIsInVzZXJfaWQiOjR9.u5AH8pJoZiMLte6ZeOc4TPUnplflOHN_zbkpU0oleRo",
+    "created_at": "2025-07-26T13:18:08.103Z",
+    "expires_at": "2025-08-02T13:18:08Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 5,
+  "fields": {
+    "user": null,
+    "jti": "a2c2eb6b4595469aaf617ff054e01c62",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE0MDg0MSwiaWF0IjoxNzUzNTM2MDQxLCJqdGkiOiJhMmMyZWI2YjQ1OTU0NjlhYWY2MTdmZjA1NGUwMWM2MiIsInVzZXJfaWQiOjR9.FLLmUK44fnxYJmmrmOtnVlABnOrBBZO0FM4HN_Xovl8",
+    "created_at": "2025-07-26T13:20:41.041Z",
+    "expires_at": "2025-08-02T13:20:41Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 6,
+  "fields": {
+    "user": null,
+    "jti": "8daeefd5e1eb4a138c113251ebf4cda0",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE1NTAyMSwiaWF0IjoxNzUzNTUwMjIxLCJqdGkiOiI4ZGFlZWZkNWUxZWI0YTEzOGMxMTMyNTFlYmY0Y2RhMCIsInVzZXJfaWQiOjR9.NEO1Z_pqN5ova7_XL25ElSf8dVUORheFva1p8rMayPA",
+    "created_at": "2025-07-26T17:17:01.433Z",
+    "expires_at": "2025-08-02T17:17:01Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 7,
+  "fields": {
+    "user": null,
+    "jti": "877f4ed47dae437d9ff3578ef4153751",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE1NTA0MSwiaWF0IjoxNzUzNTUwMjQxLCJqdGkiOiI4NzdmNGVkNDdkYWU0MzdkOWZmMzU3OGVmNDE1Mzc1MSIsInVzZXJfaWQiOjR9.eioW7bPkPB1R5l9WU01qgzQK8QmUxkHkqou4Ns0BKmQ",
+    "created_at": "2025-07-26T17:17:21.108Z",
+    "expires_at": "2025-08-02T17:17:21Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 8,
+  "fields": {
+    "user": null,
+    "jti": "3519a685f4b64f838b9c6f7b23ce5294",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE1NzMxNCwiaWF0IjoxNzUzNTUyNTE0LCJqdGkiOiIzNTE5YTY4NWY0YjY0ZjgzOGI5YzZmN2IyM2NlNTI5NCIsInVzZXJfaWQiOjR9.v102qzBTtpEK3NgLEZKqm3tzEpFL2f1p7-eZAFyJ_Yg",
+    "created_at": "2025-07-26T17:55:14.402Z",
+    "expires_at": "2025-08-02T17:55:14Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 9,
+  "fields": {
+    "user": null,
+    "jti": "09bfd988d9674f46812b68b27b4b3600",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE1Nzk4OSwiaWF0IjoxNzUzNTUzMTg5LCJqdGkiOiIwOWJmZDk4OGQ5Njc0ZjQ2ODEyYjY4YjI3YjRiMzYwMCIsInVzZXJfaWQiOjV9.RC_PMEpkoneJrpoHiei-3ztX67sax5SkFjrku8ny-94",
+    "created_at": "2025-07-26T18:06:29.313Z",
+    "expires_at": "2025-08-02T18:06:29Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 10,
+  "fields": {
+    "user": null,
+    "jti": "90ec2314c71a40aca650bf5a17d3b1cd",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE1ODA5NCwiaWF0IjoxNzUzNTUzMjk0LCJqdGkiOiI5MGVjMjMxNGM3MWE0MGFjYTY1MGJmNWExN2QzYjFjZCIsInVzZXJfaWQiOjV9.NuodtnTmlCWOke6A6_wgjh3j1TpW078qRsipdz43a0A",
+    "created_at": "2025-07-26T18:08:14.852Z",
+    "expires_at": "2025-08-02T18:08:14Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 11,
+  "fields": {
+    "user": null,
+    "jti": "4fc90a5aa3be48caa3a9133e0b4ebdd0",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE2MDc2MiwiaWF0IjoxNzUzNTU1OTYyLCJqdGkiOiI0ZmM5MGE1YWEzYmU0OGNhYTNhOTEzM2UwYjRlYmRkMCIsInVzZXJfaWQiOjV9.nHUiwS1pt-cCw4ZvQo6BHYPtUIgqOp98jD-1sdXixC8",
+    "created_at": "2025-07-26T18:52:42.625Z",
+    "expires_at": "2025-08-02T18:52:42Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 12,
+  "fields": {
+    "user": null,
+    "jti": "ab4593e0f0db41e88862cad6af3e9972",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDE3OTAyOSwiaWF0IjoxNzUzNTc0MjI5LCJqdGkiOiJhYjQ1OTNlMGYwZGI0MWU4ODg2MmNhZDZhZjNlOTk3MiIsInVzZXJfaWQiOjV9.ihieADzfKkax5IVI0dxeS0XgIFYx2IwEMF2iy8_4WtA",
+    "created_at": "2025-07-26T23:57:09.168Z",
+    "expires_at": "2025-08-02T23:57:09Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 13,
+  "fields": {
+    "user": null,
+    "jti": "27e0d8a8b858438c8acc634b7ec2d7eb",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDIyMjExMywiaWF0IjoxNzUzNjE3MzEzLCJqdGkiOiIyN2UwZDhhOGI4NTg0MzhjOGFjYzYzNGI3ZWMyZDdlYiIsInVzZXJfaWQiOjUsInBob25lIjoiNTYxODIzMzIifQ.5T1jZ6QjDDYt0iQBCuOl-YKFHOqjDUqDNdRWGx_hH0I",
+    "created_at": "2025-07-27T11:55:13.997Z",
+    "expires_at": "2025-08-03T11:55:13Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 14,
+  "fields": {
+    "user": null,
+    "jti": "b609c4a51bc7400fb5a216ebcb95c9cc",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDIyMjExNSwiaWF0IjoxNzUzNjE3MzE1LCJqdGkiOiJiNjA5YzRhNTFiYzc0MDBmYjVhMjE2ZWJjYjk1YzljYyIsInVzZXJfaWQiOjUsInBob25lIjoiNTYxODIzMzIifQ.Q4agY-atZbNrQGnfop66cznXw0ufF6OpnYv6Ny1Iyeo",
+    "created_at": "2025-07-27T11:55:15.993Z",
+    "expires_at": "2025-08-03T11:55:15Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 15,
+  "fields": {
+    "user": null,
+    "jti": "452288b69bb046a8a7b251f598e84195",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDIzMjQ2MywiaWF0IjoxNzUzNjI3NjYzLCJqdGkiOiI0NTIyODhiNjliYjA0NmE4YTdiMjUxZjU5OGU4NDE5NSIsInVzZXJfaWQiOjV9.TT6qL4UN630c7gBijjdC3Nfh0Gb5Zeh3mIDPDlPHLrc",
+    "created_at": "2025-07-27T14:47:43.357Z",
+    "expires_at": "2025-08-03T14:47:43Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 16,
+  "fields": {
+    "user": null,
+    "jti": "27072585e97e44dcbc25911b81e8e1c9",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDIzMjY1OSwiaWF0IjoxNzUzNjI3ODU5LCJqdGkiOiIyNzA3MjU4NWU5N2U0NGRjYmMyNTkxMWI4MWU4ZTFjOSIsInVzZXJfaWQiOjV9.CRgyUIHSJZ0KF9DC3zg8qNgV5wfNKNQW8EytwjfIduI",
+    "created_at": "2025-07-27T14:50:59.788Z",
+    "expires_at": "2025-08-03T14:50:59Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 17,
+  "fields": {
+    "user": null,
+    "jti": "6e92f5b80470445192b457c6eb1e6230",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDI5NTI0NiwiaWF0IjoxNzUzNjkwNDQ2LCJqdGkiOiI2ZTkyZjViODA0NzA0NDUxOTJiNDU3YzZlYjFlNjIzMCIsInVzZXJfaWQiOjUsInBob25lIjoiNTYxODIzMzIifQ.mubu9pD7rg3dylzXFtFrmX3uOiDBnNLr4hjDj9Bc79A",
+    "created_at": "2025-07-28T08:14:06.212Z",
+    "expires_at": "2025-08-04T08:14:06Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 18,
+  "fields": {
+    "user": null,
+    "jti": "dd1be28ce18240f7a461786077b50516",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDI5NTI0OCwiaWF0IjoxNzUzNjkwNDQ4LCJqdGkiOiJkZDFiZTI4Y2UxODI0MGY3YTQ2MTc4NjA3N2I1MDUxNiIsInVzZXJfaWQiOjUsInBob25lIjoiNTYxODIzMzIifQ.45zJgai1yvZFXd06vFojSj2z6fKXx8AXj-_c9zWk2VU",
+    "created_at": "2025-07-28T08:14:08.241Z",
+    "expires_at": "2025-08-04T08:14:08Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 19,
+  "fields": {
+    "user": null,
+    "jti": "4ab96ea4f82f498985a96858d036044e",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDQyMTMwNCwiaWF0IjoxNzUzODE2NTA0LCJqdGkiOiI0YWI5NmVhNGY4MmY0OTg5ODVhOTY4NThkMDM2MDQ0ZSIsInVzZXJfaWQiOjV9.Is48RR3ZWZZcpKfPJycYkCREEK4IkZQC-6DAjdrZNcQ",
+    "created_at": "2025-07-29T19:15:04.905Z",
+    "expires_at": "2025-08-05T19:15:04Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 20,
+  "fields": {
+    "user": 10,
+    "jti": "99dae5c4490f49969164c94615910f17",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDQyNDQ0OCwiaWF0IjoxNzUzODE5NjQ4LCJqdGkiOiI5OWRhZTVjNDQ5MGY0OTk2OTE2NGM5NDYxNTkxMGYxNyIsInVzZXJfaWQiOjEwfQ._N-c9OpOhpCcnGvrmt-g6dKFjruQVoBrCzJBCc9GFdY",
+    "created_at": "2025-07-29T20:07:28.165Z",
+    "expires_at": "2025-08-05T20:07:28Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 21,
+  "fields": {
+    "user": 10,
+    "jti": "e2230d3fdaa64786880537e74e2891ed",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDQyNDUzMywiaWF0IjoxNzUzODE5NzMzLCJqdGkiOiJlMjIzMGQzZmRhYTY0Nzg2ODgwNTM3ZTc0ZTI4OTFlZCIsInVzZXJfaWQiOjEwfQ.WN5LB0uoLZ5qt2py5Zl6xavqFku95ZG5jO3EvigRobE",
+    "created_at": "2025-07-29T20:08:53.191Z",
+    "expires_at": "2025-08-05T20:08:53Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 22,
+  "fields": {
+    "user": 10,
+    "jti": "854050aedb84438096f84a9e81c5da58",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDQzNTE0MiwiaWF0IjoxNzUzODMwMzQyLCJqdGkiOiI4NTQwNTBhZWRiODQ0MzgwOTZmODRhOWU4MWM1ZGE1OCIsInVzZXJfaWQiOjEwfQ.6Xn5r1ao0ghn2dPhQiyBURBa7SgefEBbB7_VF8jc9Os",
+    "created_at": "2025-07-29T23:05:42.178Z",
+    "expires_at": "2025-08-05T23:05:42Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 23,
+  "fields": {
+    "user": 10,
+    "jti": "0ec0a5f8e7eb4af3a82d0cfc4ebf0fe3",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDY5MDA3NCwiaWF0IjoxNzU0MDg1Mjc0LCJqdGkiOiIwZWMwYTVmOGU3ZWI0YWYzYTgyZDBjZmM0ZWJmMGZlMyIsInVzZXJfaWQiOjEwfQ.XYW1K6YeNX25kj3ZQpktttuxrn-98IgeEzdXHSoOp8o",
+    "created_at": "2025-08-01T21:54:34.475Z",
+    "expires_at": "2025-08-08T21:54:34Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 24,
+  "fields": {
+    "user": 10,
+    "jti": "880cdc1e0d4c4f89b9f5cb4f2109ad31",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDc1MDE1MywiaWF0IjoxNzU0MTQ1MzUzLCJqdGkiOiI4ODBjZGMxZTBkNGM0Zjg5YjlmNWNiNGYyMTA5YWQzMSIsInVzZXJfaWQiOjEwfQ.Qj1n-djtAqFDOsv36cBSC7htMtWz-VJgnke0Lc-2ynI",
+    "created_at": "2025-08-02T14:35:53.764Z",
+    "expires_at": "2025-08-09T14:35:53Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 25,
+  "fields": {
+    "user": 10,
+    "jti": "72441e9a61fd4579b94f2b46e61e2567",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDc1MjM2NiwiaWF0IjoxNzU0MTQ3NTY2LCJqdGkiOiI3MjQ0MWU5YTYxZmQ0NTc5Yjk0ZjJiNDZlNjFlMjU2NyIsInVzZXJfaWQiOjEwfQ.JAYo0vH-JxkD2h9d3I6tCFqSc65GRv5HYa19xHSZujA",
+    "created_at": "2025-08-02T15:12:46.517Z",
+    "expires_at": "2025-08-09T15:12:46Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 26,
+  "fields": {
+    "user": 10,
+    "jti": "6b93d91746cb4ea9be8fbf2e14ac651a",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDgzNTk0OSwiaWF0IjoxNzU0MjMxMTQ5LCJqdGkiOiI2YjkzZDkxNzQ2Y2I0ZWE5YmU4ZmJmMmUxNGFjNjUxYSIsInVzZXJfaWQiOjEwLCJwaG9uZSI6IjU2MTgyMzMyIn0.0vXn603GqEPtA7OgyZ7zyngw75SwzJq-fSkvY4V_Ixc",
+    "created_at": "2025-08-03T14:25:49.143Z",
+    "expires_at": "2025-08-10T14:25:49Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 27,
+  "fields": {
+    "user": 10,
+    "jti": "15233d83315144898aafb9e2e62a34e9",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDg0OTY3OSwiaWF0IjoxNzU0MjQ0ODc5LCJqdGkiOiIxNTIzM2Q4MzMxNTE0NDg5OGFhZmI5ZTJlNjJhMzRlOSIsInVzZXJfaWQiOjEwfQ.J5YsPYjohtqnhA8C-pdo4e2yonvWUOslsdPdfc8t5OU",
+    "created_at": "2025-08-03T18:14:39.374Z",
+    "expires_at": "2025-08-10T18:14:39Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 28,
+  "fields": {
+    "user": 10,
+    "jti": "bd2ee08e84154eef8d2867aeb298fd51",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDg5OTM1MCwiaWF0IjoxNzU0Mjk0NTUwLCJqdGkiOiJiZDJlZTA4ZTg0MTU0ZWVmOGQyODY3YWViMjk4ZmQ1MSIsInVzZXJfaWQiOjEwLCJwaG9uZSI6IjU2MTgyMzMyIn0.vVm1Il51OBe3p69h-oC2zJvuZgOXgj-JoSDNk3Wskfo",
+    "created_at": "2025-08-04T08:02:30.761Z",
+    "expires_at": "2025-08-11T08:02:30Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 29,
+  "fields": {
+    "user": 10,
+    "jti": "ebe12f8c12c54a2a9758c1d42abcb3a3",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDg5OTM1MSwiaWF0IjoxNzU0Mjk0NTUxLCJqdGkiOiJlYmUxMmY4YzEyYzU0YTJhOTc1OGMxZDQyYWJjYjNhMyIsInVzZXJfaWQiOjEwLCJwaG9uZSI6IjU2MTgyMzMyIn0.-ZtQDNhhjDczSS94SITS4ajU74TxGfQdWtGL9avXKZ0",
+    "created_at": "2025-08-04T08:02:31.570Z",
+    "expires_at": "2025-08-11T08:02:31Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 30,
+  "fields": {
+    "user": 10,
+    "jti": "e9a42d63f0764ce0bdae12f81d298144",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDk0NjI1NSwiaWF0IjoxNzU0MzQxNDU1LCJqdGkiOiJlOWE0MmQ2M2YwNzY0Y2UwYmRhZTEyZjgxZDI5ODE0NCIsInVzZXJfaWQiOjEwfQ.dTq5lE16wpxPrF_TPPkVeHJ7dfVU2HJTTn0FfeOPM3Y",
+    "created_at": "2025-08-04T21:04:15.002Z",
+    "expires_at": "2025-08-11T21:04:15Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 31,
+  "fields": {
+    "user": 10,
+    "jti": "dabe3f7dfc824e5aa174727e9ca3d94a",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTk1NDI4NiwiaWF0IjoxNzU1MzQ5NDg2LCJqdGkiOiJkYWJlM2Y3ZGZjODI0ZTVhYTE3NDcyN2U5Y2EzZDk0YSIsInVzZXJfaWQiOjEwfQ.RkD5nZHFq0LkLbSNAr1F9cUvef0FT6JqPwHVY4B1sXg",
+    "created_at": "2025-08-16T13:04:46.192Z",
+    "expires_at": "2025-08-23T13:04:46Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 32,
+  "fields": {
+    "user": 10,
+    "jti": "76351bb170c84d39ba8271db75d1c6fd",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjAzMDk5OCwiaWF0IjoxNzU1NDI2MTk4LCJqdGkiOiI3NjM1MWJiMTcwYzg0ZDM5YmE4MjcxZGI3NWQxYzZmZCIsInVzZXJfaWQiOjEwfQ.n5McEoGlzbOuafcZ6dhm5ax2mHk_3QYq_Xm-2xQez6c",
+    "created_at": "2025-08-17T10:23:18.471Z",
+    "expires_at": "2025-08-24T10:23:18Z"
+  }
+},
+{
+  "model": "token_blacklist.outstandingtoken",
+  "pk": 33,
+  "fields": {
+    "user": 10,
+    "jti": "62aa4a8341784e8fa32c2555b3630bb1",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjY0MDEzMiwiaWF0IjoxNzU2MDM1MzMyLCJqdGkiOiI2MmFhNGE4MzQxNzg0ZThmYTMyYzI1NTViMzYzMGJiMSIsInVzZXJfaWQiOjEwfQ.aEWgfXv0PCMEvbDoMkTtt_4sI30-K8yiq_gydumatiw",
+    "created_at": "2025-08-24T11:35:32.724Z",
+    "expires_at": "2025-08-31T11:35:32Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 1,
+  "fields": {
+    "token": 5,
+    "blacklisted_at": "2025-07-26T17:16:40.664Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 2,
+  "fields": {
+    "token": 6,
+    "blacklisted_at": "2025-07-26T17:17:08.980Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 3,
+  "fields": {
+    "token": 10,
+    "blacklisted_at": "2025-07-26T18:52:23.652Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 4,
+  "fields": {
+    "token": 11,
+    "blacklisted_at": "2025-07-27T11:55:14.054Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 5,
+  "fields": {
+    "token": 9,
+    "blacklisted_at": "2025-07-27T11:55:16.000Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 6,
+  "fields": {
+    "token": 13,
+    "blacklisted_at": "2025-07-27T14:47:30.901Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 7,
+  "fields": {
+    "token": 15,
+    "blacklisted_at": "2025-07-28T08:14:06.231Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 8,
+  "fields": {
+    "token": 14,
+    "blacklisted_at": "2025-07-28T08:14:08.257Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 9,
+  "fields": {
+    "token": 21,
+    "blacklisted_at": "2025-07-29T23:05:06.276Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 10,
+  "fields": {
+    "token": 22,
+    "blacklisted_at": "2025-07-29T23:36:02.567Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 11,
+  "fields": {
+    "token": 25,
+    "blacklisted_at": "2025-08-03T14:25:49.149Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 12,
+  "fields": {
+    "token": 27,
+    "blacklisted_at": "2025-08-04T08:02:30.768Z"
+  }
+},
+{
+  "model": "token_blacklist.blacklistedtoken",
+  "pk": 13,
+  "fields": {
+    "token": 26,
+    "blacklisted_at": "2025-08-04T08:02:31.580Z"
+  }
+},
+{
+  "model": "api.store",
+  "pk": 3,
+  "fields": {
+    "name": "Boutique Centre-Ville",
+    "description": "Boutique principale située au centre-ville",
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:39.019Z",
+    "updated_at": "2025-07-29T20:06:39.019Z"
+  }
+},
+{
+  "model": "api.store",
+  "pk": 4,
+  "fields": {
+    "name": "Boutique 2",
+    "description": "ddf dd",
+    "is_active": true,
+    "created_at": "2025-07-29T22:48:19.900Z",
+    "updated_at": "2025-07-29T22:48:19.900Z"
+  }
+},
+{
+  "model": "api.store",
+  "pk": 5,
+  "fields": {
+    "name": "Boutique Test",
+    "description": "Boutique pour tests",
+    "is_active": true,
+    "created_at": "2025-08-02T19:13:14.679Z",
+    "updated_at": "2025-08-02T19:13:14.680Z"
+  }
+},
+{
+  "model": "api.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$E37fG0CcBZfZj5JOrrdswd$Mzwu1tFftcdkkCj/SXj/EHZX4c91sg2KdpuKwrl7SFs=",
+    "last_login": "2025-07-29T20:08:53Z",
+    "username": "test",
+    "email": "test@gesstock.com",
+    "phone": "56182332",
+    "fullname": "test test",
+    "created_at": "2025-07-29T20:06:39.583Z",
+    "store": 3,
+    "is_active": true,
+    "is_staff": false,
+    "is_superuser": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "api.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$KZPPXSe97QicBIsSqp9lEu$BL3kX2jSiGIYysJ6EhNRm0ty/8h2KdOtIDJGjCRBmAc=",
+    "last_login": null,
+    "username": "manager",
+    "email": "manager@gesstock.com",
+    "phone": "0123456790",
+    "fullname": "Manager Principal",
+    "created_at": "2025-07-29T20:06:40.169Z",
+    "store": 3,
+    "is_active": true,
+    "is_staff": true,
+    "is_superuser": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "api.user",
+  "pk": 12,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$GafyGdYGrjmTbQTFOhDdpW$wePBvndReaFx+Mk6+CCxCtx/BQM2cAYW0NHwIhXeVTQ=",
+    "last_login": null,
+    "username": "vendeur",
+    "email": "vendeur@gesstock.com",
+    "phone": "0123456791",
+    "fullname": "Pierre Vendeur",
+    "created_at": "2025-07-29T20:06:40.749Z",
+    "store": 3,
+    "is_active": true,
+    "is_staff": false,
+    "is_superuser": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "api.user",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$BIZcLyuNlEMqrPG0LLUAuT$ofYEAyicYQaW2ilxkPNRDbWp6N9CGCUUxf0nqZumbuI=",
+    "last_login": "2025-07-29T23:21:47.485Z",
+    "username": "admin",
+    "email": "admin@gmail.com",
+    "phone": null,
+    "fullname": "admin",
+    "created_at": "2025-07-29T20:31:02.293Z",
+    "store": null,
+    "is_active": true,
+    "is_staff": true,
+    "is_superuser": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "api.user",
+  "pk": 14,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "username": "admin",
+    "email": "admin@test.com",
+    "phone": null,
+    "fullname": "Administrateur Test",
+    "created_at": "2025-08-02T19:13:14.689Z",
+    "store": 5,
+    "is_active": true,
+    "is_staff": true,
+    "is_superuser": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "api.warehouse",
+  "pk": 6,
+  "fields": {
+    "name": "Magasin Principal",
+    "address": "123 Rue du Commerce",
+    "store": 3,
+    "is_active": false,
+    "created_at": "2025-07-29T20:06:40.750Z"
+  }
+},
+{
+  "model": "api.warehouse",
+  "pk": 7,
+  "fields": {
+    "name": "Entrepôt Stockage",
+    "address": "Zone Industrielle",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.750Z"
+  }
+},
+{
+  "model": "api.warehouse",
+  "pk": 8,
+  "fields": {
+    "name": "Entrepôt Principal",
+    "address": "Adresse test",
+    "store": 5,
+    "is_active": true,
+    "created_at": "2025-08-02T19:13:14.685Z"
+  }
+},
+{
+  "model": "api.warehouse",
+  "pk": 9,
+  "fields": {
+    "name": "Entrepôt Secondaire",
+    "address": "Adresse 2",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-02T20:35:32.004Z"
+  }
+},
+{
+  "model": "api.employee",
+  "pk": 4,
+  "fields": {
+    "fullname": "Jean Dupont",
+    "phone": "0123456793",
+    "position": "vendeur",
+    "salary": "1800.00",
+    "hire_date": "2023-06-15",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.751Z"
+  }
+},
+{
+  "model": "api.employee",
+  "pk": 5,
+  "fields": {
+    "fullname": "Sophie Martin",
+    "phone": "0123456794",
+    "position": "caissier",
+    "salary": "1600.00",
+    "hire_date": "2023-08-01",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.755Z"
+  }
+},
+{
+  "model": "api.supplier",
+  "pk": 5,
+  "fields": {
+    "name": "Distributeur Alimentaire ABC",
+    "phone": "0123456800",
+    "email": "contact@abc-distrib.com",
+    "address": "456 Avenue des Fournisseurs",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.757Z"
+  }
+},
+{
+  "model": "api.supplier",
+  "pk": 6,
+  "fields": {
+    "name": "Grossiste Électronique XYZ",
+    "phone": "0123456801",
+    "email": "ventes@xyz-electronique.com",
+    "address": "789 Boulevard de la Technologie",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.758Z"
+  }
+},
+{
+  "model": "api.customer",
+  "pk": 7,
+  "fields": {
+    "name": "Restaurant Le Bon Goût",
+    "phone": "0123456810",
+    "email": "commandes@lebongout.com",
+    "address": "123 Place du Marché",
+    "debt": "0.00",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.764Z"
+  }
+},
+{
+  "model": "api.customer",
+  "pk": 8,
+  "fields": {
+    "name": "Café du Centre",
+    "phone": "0123456811",
+    "email": "cafe@centre.com",
+    "address": "45 Rue Principale",
+    "debt": "937.50",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.764Z"
+  }
+},
+{
+  "model": "api.customer",
+  "pk": 9,
+  "fields": {
+    "name": "Client Test",
+    "phone": "123456789",
+    "email": "client@test.com",
+    "address": null,
+    "debt": "0.00",
+    "store": 5,
+    "is_active": true,
+    "created_at": "2025-08-02T19:13:14.700Z"
+  }
+},
+{
+  "model": "api.customer",
+  "pk": 10,
+  "fields": {
+    "name": "Armel KAMBOU",
+    "phone": "56182332",
+    "email": "marmelkambou2@gmail.com",
+    "address": "bobo dioulasso",
+    "debt": "5000.00",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-03T20:22:28.126Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 15,
+  "fields": {
+    "reference": "ORD-001",
+    "name": "Ordinateur Portable Dell",
+    "description": "Ordinateur portable professionnel 15 pouces",
+    "unit": "pièce",
+    "price": "650.00",
+    "sale_price": "899.00",
+    "min_stock_alert": 5,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.764Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 16,
+  "fields": {
+    "reference": "TEL-002",
+    "name": "Téléphone Samsung Galaxy",
+    "description": "Smartphone Android dernière génération",
+    "unit": "pièce",
+    "price": "420.00",
+    "sale_price": "699.00",
+    "min_stock_alert": 10,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.765Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 17,
+  "fields": {
+    "reference": "TAB-003",
+    "name": "Tablette iPad",
+    "description": "Tablette Apple 10 pouces WiFi",
+    "unit": "pièce",
+    "price": "300.00",
+    "sale_price": "449.00",
+    "min_stock_alert": 3,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.765Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 18,
+  "fields": {
+    "reference": "IMP-004",
+    "name": "Imprimante HP LaserJet",
+    "description": "Imprimante laser noir et blanc A4",
+    "unit": "pièce",
+    "price": "120.00",
+    "sale_price": "189.00",
+    "min_stock_alert": 5,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.766Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 19,
+  "fields": {
+    "reference": "ECO-005",
+    "name": "Écouteurs Bluetooth",
+    "description": "Écouteurs sans fil Bluetooth 5.0",
+    "unit": "pièce",
+    "price": "25.00",
+    "sale_price": "49.00",
+    "min_stock_alert": 8,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.771Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 20,
+  "fields": {
+    "reference": "TEST05",
+    "name": "produit test",
+    "description": "dfddd",
+    "unit": "pièce",
+    "price": "0.00",
+    "sale_price": "0.00",
+    "min_stock_alert": 10,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T23:10:52.283Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 21,
+  "fields": {
+    "reference": "PROD001",
+    "name": "Produit Test",
+    "description": null,
+    "unit": "pièce",
+    "price": "500.00",
+    "sale_price": "750.00",
+    "min_stock_alert": 5,
+    "store": 5,
+    "is_active": true,
+    "created_at": "2025-08-02T19:13:14.705Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 22,
+  "fields": {
+    "reference": "PROD002",
+    "name": "Produit Auto-Prix",
+    "description": null,
+    "unit": "pièce",
+    "price": "300.00",
+    "sale_price": "450.00",
+    "min_stock_alert": 5,
+    "store": 5,
+    "is_active": true,
+    "created_at": "2025-08-02T19:13:14.790Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 23,
+  "fields": {
+    "reference": "PROD-TRANSFER-001",
+    "name": "Produit Test Transfert",
+    "description": null,
+    "unit": "pièce",
+    "price": "0.00",
+    "sale_price": "500.00",
+    "min_stock_alert": 5,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-02T20:35:32.024Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 24,
+  "fields": {
+    "reference": "PROD-TRANSFER-002",
+    "name": "Produit Test Transfert V2",
+    "description": null,
+    "unit": "pièce",
+    "price": "0.00",
+    "sale_price": "750.00",
+    "min_stock_alert": 5,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-02T21:12:05.005Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 25,
+  "fields": {
+    "reference": "298",
+    "name": "tttttttt",
+    "description": "",
+    "unit": "pièce",
+    "price": "0.00",
+    "sale_price": "5.00",
+    "min_stock_alert": 5,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-02T21:34:36.105Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 26,
+  "fields": {
+    "reference": "PROD-PRICE-TEST",
+    "name": "Produit Test Prix",
+    "description": null,
+    "unit": "pièce",
+    "price": "0.00",
+    "sale_price": "2500.00",
+    "min_stock_alert": 10,
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-02T21:49:04.715Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 21,
+  "fields": {
+    "product": 15,
+    "warehouse": 6,
+    "quantity": 36,
+    "last_updated": "2025-07-29T20:42:43.561Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 22,
+  "fields": {
+    "product": 16,
+    "warehouse": 6,
+    "quantity": 22,
+    "last_updated": "2025-07-29T20:06:40.849Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 23,
+  "fields": {
+    "product": 17,
+    "warehouse": 6,
+    "quantity": 39,
+    "last_updated": "2025-07-29T20:48:25.107Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 24,
+  "fields": {
+    "product": 18,
+    "warehouse": 6,
+    "quantity": 6,
+    "last_updated": "2025-07-29T20:56:16.060Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 25,
+  "fields": {
+    "product": 19,
+    "warehouse": 6,
+    "quantity": 1,
+    "last_updated": "2025-08-02T20:18:17.036Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 26,
+  "fields": {
+    "product": 15,
+    "warehouse": 7,
+    "quantity": 10,
+    "last_updated": "2025-07-29T22:59:08.971Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 27,
+  "fields": {
+    "product": 20,
+    "warehouse": 6,
+    "quantity": 3,
+    "last_updated": "2025-08-02T21:21:10.608Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 28,
+  "fields": {
+    "product": 20,
+    "warehouse": 7,
+    "quantity": 0,
+    "last_updated": "2025-08-02T21:21:10.592Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 29,
+  "fields": {
+    "product": 19,
+    "warehouse": 7,
+    "quantity": 1201,
+    "last_updated": "2025-08-02T15:05:40.787Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 30,
+  "fields": {
+    "product": 21,
+    "warehouse": 8,
+    "quantity": 88,
+    "last_updated": "2025-08-02T19:59:05.013Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 31,
+  "fields": {
+    "product": 22,
+    "warehouse": 8,
+    "quantity": 41,
+    "last_updated": "2025-08-02T19:47:40.234Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 32,
+  "fields": {
+    "product": 23,
+    "warehouse": 8,
+    "quantity": 20,
+    "last_updated": "2025-08-02T20:35:32.037Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 33,
+  "fields": {
+    "product": 23,
+    "warehouse": 9,
+    "quantity": 0,
+    "last_updated": "2025-08-02T20:35:32.041Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 34,
+  "fields": {
+    "product": 24,
+    "warehouse": 8,
+    "quantity": 17,
+    "last_updated": "2025-08-02T21:12:05.047Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 35,
+  "fields": {
+    "product": 24,
+    "warehouse": 9,
+    "quantity": 8,
+    "last_updated": "2025-08-02T21:12:05.052Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 36,
+  "fields": {
+    "product": 26,
+    "warehouse": 7,
+    "quantity": 9447,
+    "last_updated": "2025-08-17T10:26:00.184Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 37,
+  "fields": {
+    "product": 26,
+    "warehouse": 9,
+    "quantity": 497,
+    "last_updated": "2025-08-04T21:12:53.697Z"
+  }
+},
+{
+  "model": "api.productstock",
+  "pk": 38,
+  "fields": {
+    "product": 26,
+    "warehouse": 6,
+    "quantity": 201,
+    "last_updated": "2025-08-17T10:31:28.174Z"
+  }
+},
+{
+  "model": "api.account",
+  "pk": 6,
+  "fields": {
+    "name": "Caisse Principale",
+    "account_type": "cash",
+    "balance": "15095.90",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.772Z"
+  }
+},
+{
+  "model": "api.account",
+  "pk": 7,
+  "fields": {
+    "name": "Compte Courant BNP",
+    "account_type": "bank",
+    "balance": "337706.44",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-07-29T20:06:40.774Z"
+  }
+},
+{
+  "model": "api.account",
+  "pk": 8,
+  "fields": {
+    "name": "caisse 2",
+    "account_type": "cash",
+    "balance": "2000.00",
+    "store": 4,
+    "is_active": true,
+    "created_at": "2025-07-29T22:49:40.872Z"
+  }
+},
+{
+  "model": "api.account",
+  "pk": 9,
+  "fields": {
+    "name": "Caisse Principale",
+    "account_type": "cash",
+    "balance": "113050.00",
+    "store": 5,
+    "is_active": true,
+    "created_at": "2025-08-02T19:13:14.694Z"
+  }
+},
+{
+  "model": "api.account",
+  "pk": 10,
+  "fields": {
+    "name": "Caisse Test",
+    "account_type": "cash",
+    "balance": "53242.50",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-02T21:44:53.039Z"
+  }
+},
+{
+  "model": "api.account",
+  "pk": 11,
+  "fields": {
+    "name": "Compte Test Complet",
+    "account_type": "cash",
+    "balance": "64500.00",
+    "store": 3,
+    "is_active": true,
+    "created_at": "2025-08-02T21:49:04.735Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 10,
+  "fields": {
+    "entry_number": "ENT-3-00001",
+    "supplier": 5,
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "323.00",
+    "notes": "Livraison hebdomadaire - Produits alimentaires",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:06:40.777Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 11,
+  "fields": {
+    "entry_number": "ENT-3-00002",
+    "supplier": 6,
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "3925.00",
+    "notes": "Commande électronique mensuelle",
+    "created_by": 11,
+    "created_at": "2025-07-29T20:06:40.800Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 12,
+  "fields": {
+    "entry_number": "ENT-3-00003",
+    "supplier": 5,
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "45.00",
+    "notes": "Test d'achat pour validation des transactions",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:42:43.539Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 13,
+  "fields": {
+    "entry_number": "ENT-3-00004",
+    "supplier": 5,
+    "warehouse": 7,
+    "account": 6,
+    "total_amount": "100.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-07-29T22:59:08.941Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 14,
+  "fields": {
+    "entry_number": "EN-000005",
+    "supplier": 5,
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "500.00",
+    "notes": "fewe",
+    "created_by": 10,
+    "created_at": "2025-08-01T21:57:28.397Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 15,
+  "fields": {
+    "entry_number": "EN-000006",
+    "supplier": 5,
+    "warehouse": 7,
+    "account": 6,
+    "total_amount": "500.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-01T22:02:58.471Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 16,
+  "fields": {
+    "entry_number": "EN-000007",
+    "supplier": 6,
+    "warehouse": 7,
+    "account": 7,
+    "total_amount": "500000.00",
+    "notes": "sdsdf",
+    "created_by": 10,
+    "created_at": "2025-08-01T22:16:21.726Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 18,
+  "fields": {
+    "entry_number": "EN-000008",
+    "supplier": 6,
+    "warehouse": 6,
+    "account": 7,
+    "total_amount": "50000.00",
+    "notes": "test",
+    "created_by": 10,
+    "created_at": "2025-08-02T15:04:35.252Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 19,
+  "fields": {
+    "entry_number": "EN-000009",
+    "supplier": 5,
+    "warehouse": 7,
+    "account": 7,
+    "total_amount": "60000.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-02T15:05:40.777Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 20,
+  "fields": {
+    "entry_number": "EN-000010",
+    "supplier": 6,
+    "warehouse": 7,
+    "account": 11,
+    "total_amount": "50000.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-03T18:16:22.832Z"
+  }
+},
+{
+  "model": "api.stockentry",
+  "pk": 21,
+  "fields": {
+    "entry_number": "EN-000011",
+    "supplier": 6,
+    "warehouse": 6,
+    "account": 7,
+    "total_amount": "78000.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-17T10:31:28.168Z"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 17,
+  "fields": {
+    "stock_entry": 10,
+    "product": 15,
+    "quantity": 50,
+    "purchase_price": "2.50",
+    "total_price": "125.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 18,
+  "fields": {
+    "stock_entry": 10,
+    "product": 16,
+    "quantity": 30,
+    "purchase_price": "4.20",
+    "total_price": "126.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 19,
+  "fields": {
+    "stock_entry": 10,
+    "product": 17,
+    "quantity": 40,
+    "purchase_price": "1.80",
+    "total_price": "72.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 20,
+  "fields": {
+    "stock_entry": 11,
+    "product": 18,
+    "quantity": 10,
+    "purchase_price": "280.00",
+    "total_price": "2800.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 21,
+  "fields": {
+    "stock_entry": 11,
+    "product": 19,
+    "quantity": 25,
+    "purchase_price": "45.00",
+    "total_price": "1125.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 22,
+  "fields": {
+    "stock_entry": 12,
+    "product": 15,
+    "quantity": 3,
+    "purchase_price": "15.00",
+    "total_price": "45.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 23,
+  "fields": {
+    "stock_entry": 13,
+    "product": 15,
+    "quantity": 10,
+    "purchase_price": "10.00",
+    "total_price": "100.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 24,
+  "fields": {
+    "stock_entry": 14,
+    "product": 20,
+    "quantity": 1,
+    "purchase_price": "500.00",
+    "total_price": "500.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 25,
+  "fields": {
+    "stock_entry": 15,
+    "product": 20,
+    "quantity": 1,
+    "purchase_price": "500.00",
+    "total_price": "500.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 26,
+  "fields": {
+    "stock_entry": 16,
+    "product": 19,
+    "quantity": 1,
+    "purchase_price": "500000.00",
+    "total_price": "500000.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 28,
+  "fields": {
+    "stock_entry": 18,
+    "product": 20,
+    "quantity": 1,
+    "purchase_price": "50000.00",
+    "total_price": "50000.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 29,
+  "fields": {
+    "stock_entry": 19,
+    "product": 19,
+    "quantity": 1200,
+    "purchase_price": "50.00",
+    "total_price": "60000.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 30,
+  "fields": {
+    "stock_entry": 20,
+    "product": 26,
+    "quantity": 10000,
+    "purchase_price": "5.00",
+    "total_price": "50000.00"
+  }
+},
+{
+  "model": "api.stockentryitem",
+  "pk": 31,
+  "fields": {
+    "stock_entry": 21,
+    "product": 26,
+    "quantity": 150,
+    "purchase_price": "520.00",
+    "total_price": "78000.00"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 19,
+  "fields": {
+    "exit_number": "SOR-3-00001",
+    "customer": 7,
+    "customer_name": null,
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "98.90",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Commande restaurant - Produits alimentaires",
+    "created_by": 12,
+    "created_at": "2025-07-29T20:06:40.829Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 20,
+  "fields": {
+    "exit_number": "SOR-3-00002",
+    "customer": null,
+    "customer_name": "Client de passage",
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "399.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Vente au comptoir",
+    "created_by": 12,
+    "created_at": "2025-07-29T20:06:40.854Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 21,
+  "fields": {
+    "exit_number": "EX-000003",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": 7,
+    "total_amount": "500000.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:10:24.581Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 22,
+  "fields": {
+    "exit_number": "EX-000004",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "5000000.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:28:29.681Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 23,
+  "fields": {
+    "exit_number": "SOR-3-00005",
+    "customer": 7,
+    "customer_name": null,
+    "warehouse": 6,
+    "account": 6,
+    "total_amount": "50.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Test de vente pour validation des transactions",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:42:43.475Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 24,
+  "fields": {
+    "exit_number": "EX-000006",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": 7,
+    "total_amount": "50000.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:48:25.092Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 25,
+  "fields": {
+    "exit_number": "EX-000007",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": 7,
+    "total_amount": "500000.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:50:49.385Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 26,
+  "fields": {
+    "exit_number": "EX-000008",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": 7,
+    "total_amount": "500000.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:56:16.006Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 27,
+  "fields": {
+    "exit_number": "EX-000009",
+    "customer": 8,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": 6,
+    "total_amount": "48.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-07-29T23:16:42.022Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 28,
+  "fields": {
+    "exit_number": "EX-000010",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 7,
+    "account": 7,
+    "total_amount": "50.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-02T16:14:49.084Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 29,
+  "fields": {
+    "exit_number": "SOR-5-00001",
+    "customer": 9,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": 9,
+    "total_amount": "1500.00",
+    "paid_amount": "1500.00",
+    "remaining_amount": "0.00",
+    "notes": "Vente test avec paiement partiel",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:13:14.715Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 30,
+  "fields": {
+    "exit_number": "SOR-5-00002",
+    "customer": null,
+    "customer_name": "Client Anonyme",
+    "warehouse": 8,
+    "account": null,
+    "total_amount": "1350.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Test prix automatique",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:13:14.803Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 31,
+  "fields": {
+    "exit_number": "SOR-5-00003",
+    "customer": 9,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": 9,
+    "total_amount": "1500.00",
+    "paid_amount": "1500.00",
+    "remaining_amount": "0.00",
+    "notes": "Vente test avec paiement partiel",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:38:40.112Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 32,
+  "fields": {
+    "exit_number": "SOR-5-00004",
+    "customer": 9,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": 9,
+    "total_amount": "1500.00",
+    "paid_amount": "1500.00",
+    "remaining_amount": "0.00",
+    "notes": "Vente test avec paiement partiel",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:46:41.511Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 33,
+  "fields": {
+    "exit_number": "SOR-5-00005",
+    "customer": null,
+    "customer_name": "Client Anonyme Test",
+    "warehouse": 8,
+    "account": null,
+    "total_amount": "1350.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Test prix automatique",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:46:41.585Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 34,
+  "fields": {
+    "exit_number": "SOR-5-00006",
+    "customer": 9,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": 9,
+    "total_amount": "1500.00",
+    "paid_amount": "1500.00",
+    "remaining_amount": "0.00",
+    "notes": "Vente test avec paiement partiel",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:47:40.151Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 35,
+  "fields": {
+    "exit_number": "SOR-5-00007",
+    "customer": null,
+    "customer_name": "Client Anonyme Test",
+    "warehouse": 8,
+    "account": null,
+    "total_amount": "1350.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Test prix automatique",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:47:40.207Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 36,
+  "fields": {
+    "exit_number": "SOR-5-00008",
+    "customer": 9,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": 9,
+    "total_amount": "750.00",
+    "paid_amount": "500.00",
+    "remaining_amount": "250.00",
+    "notes": "Test simple",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:55:39.727Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 37,
+  "fields": {
+    "exit_number": "SOR-5-00009",
+    "customer": 9,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": 9,
+    "total_amount": "750.00",
+    "paid_amount": "400.00",
+    "remaining_amount": "350.00",
+    "notes": "Test debug",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:58:20.211Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 38,
+  "fields": {
+    "exit_number": "SOR-5-00010",
+    "customer": 9,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": 9,
+    "total_amount": "1500.00",
+    "paid_amount": "1500.00",
+    "remaining_amount": "0.00",
+    "notes": "Démonstration prix automatique",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:59:04.954Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 39,
+  "fields": {
+    "exit_number": "EX-000021",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": null,
+    "total_amount": "49.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-02T20:00:28.952Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 40,
+  "fields": {
+    "exit_number": "EX-000022",
+    "customer": 7,
+    "customer_name": "",
+    "warehouse": 6,
+    "account": 7,
+    "total_amount": "980.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "980.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-02T20:18:17.021Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 41,
+  "fields": {
+    "exit_number": "TRF-5-00001",
+    "customer": null,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": null,
+    "total_amount": "0.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Test de transfert automatique",
+    "created_by": 10,
+    "created_at": "2025-08-02T20:35:32.054Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 42,
+  "fields": {
+    "exit_number": "TRF-5-00002",
+    "customer": null,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": null,
+    "total_amount": "0.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Test de transfert automatique",
+    "created_by": 10,
+    "created_at": "2025-08-02T20:37:48.893Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 43,
+  "fields": {
+    "exit_number": "TRF-5-00003",
+    "customer": null,
+    "customer_name": null,
+    "warehouse": 8,
+    "account": null,
+    "total_amount": "0.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "0.00",
+    "notes": "Test de transfert automatique",
+    "created_by": 10,
+    "created_at": "2025-08-02T20:50:47.380Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 44,
+  "fields": {
+    "exit_number": "EX-000026",
+    "customer": 8,
+    "customer_name": "",
+    "warehouse": 7,
+    "account": 11,
+    "total_amount": "2500.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "2500.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-03T18:18:45.574Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 45,
+  "fields": {
+    "exit_number": "EX-000027",
+    "customer": 8,
+    "customer_name": "",
+    "warehouse": 9,
+    "account": 11,
+    "total_amount": "2500.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "2500.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-03T18:22:22.646Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 46,
+  "fields": {
+    "exit_number": "EX-000028",
+    "customer": 10,
+    "customer_name": "",
+    "warehouse": 9,
+    "account": 6,
+    "total_amount": "5000.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "5000.00",
+    "notes": "dsf",
+    "created_by": 10,
+    "created_at": "2025-08-04T21:12:53.650Z"
+  }
+},
+{
+  "model": "api.stockexit",
+  "pk": 47,
+  "fields": {
+    "exit_number": "EX-000029",
+    "customer": 10,
+    "customer_name": "",
+    "warehouse": 7,
+    "account": 11,
+    "total_amount": "2500.00",
+    "paid_amount": "0.00",
+    "remaining_amount": "2500.00",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-17T10:26:00.139Z"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 21,
+  "fields": {
+    "stock_exit": 19,
+    "product": 15,
+    "quantity": 15,
+    "sale_price": "3.50",
+    "total_price": "52.50"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 22,
+  "fields": {
+    "stock_exit": 19,
+    "product": 16,
+    "quantity": 8,
+    "sale_price": "5.80",
+    "total_price": "46.40"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 23,
+  "fields": {
+    "stock_exit": 20,
+    "product": 18,
+    "quantity": 1,
+    "sale_price": "399.00",
+    "total_price": "399.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 24,
+  "fields": {
+    "stock_exit": 21,
+    "product": 18,
+    "quantity": 1,
+    "sale_price": "500000.00",
+    "total_price": "500000.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 25,
+  "fields": {
+    "stock_exit": 22,
+    "product": 19,
+    "quantity": 1,
+    "sale_price": "5000000.00",
+    "total_price": "5000000.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 26,
+  "fields": {
+    "stock_exit": 23,
+    "product": 15,
+    "quantity": 2,
+    "sale_price": "25.00",
+    "total_price": "50.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 27,
+  "fields": {
+    "stock_exit": 24,
+    "product": 17,
+    "quantity": 1,
+    "sale_price": "50000.00",
+    "total_price": "50000.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 28,
+  "fields": {
+    "stock_exit": 25,
+    "product": 18,
+    "quantity": 1,
+    "sale_price": "500000.00",
+    "total_price": "500000.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 29,
+  "fields": {
+    "stock_exit": 26,
+    "product": 18,
+    "quantity": 1,
+    "sale_price": "500000.00",
+    "total_price": "500000.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 30,
+  "fields": {
+    "stock_exit": 27,
+    "product": 19,
+    "quantity": 2,
+    "sale_price": "24.00",
+    "total_price": "48.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 31,
+  "fields": {
+    "stock_exit": 28,
+    "product": 20,
+    "quantity": 1,
+    "sale_price": "50.00",
+    "total_price": "50.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 32,
+  "fields": {
+    "stock_exit": 29,
+    "product": 21,
+    "quantity": 2,
+    "sale_price": "750.00",
+    "total_price": "1500.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 33,
+  "fields": {
+    "stock_exit": 30,
+    "product": 22,
+    "quantity": 3,
+    "sale_price": "450.00",
+    "total_price": "1350.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 34,
+  "fields": {
+    "stock_exit": 31,
+    "product": 21,
+    "quantity": 2,
+    "sale_price": "750.00",
+    "total_price": "1500.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 35,
+  "fields": {
+    "stock_exit": 32,
+    "product": 21,
+    "quantity": 2,
+    "sale_price": "750.00",
+    "total_price": "1500.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 36,
+  "fields": {
+    "stock_exit": 33,
+    "product": 22,
+    "quantity": 3,
+    "sale_price": "450.00",
+    "total_price": "1350.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 37,
+  "fields": {
+    "stock_exit": 34,
+    "product": 21,
+    "quantity": 2,
+    "sale_price": "750.00",
+    "total_price": "1500.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 38,
+  "fields": {
+    "stock_exit": 35,
+    "product": 22,
+    "quantity": 3,
+    "sale_price": "450.00",
+    "total_price": "1350.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 39,
+  "fields": {
+    "stock_exit": 36,
+    "product": 21,
+    "quantity": 1,
+    "sale_price": "750.00",
+    "total_price": "750.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 40,
+  "fields": {
+    "stock_exit": 37,
+    "product": 21,
+    "quantity": 1,
+    "sale_price": "750.00",
+    "total_price": "750.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 41,
+  "fields": {
+    "stock_exit": 38,
+    "product": 21,
+    "quantity": 2,
+    "sale_price": "750.00",
+    "total_price": "1500.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 42,
+  "fields": {
+    "stock_exit": 39,
+    "product": 19,
+    "quantity": 1,
+    "sale_price": "49.00",
+    "total_price": "49.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 43,
+  "fields": {
+    "stock_exit": 40,
+    "product": 19,
+    "quantity": 20,
+    "sale_price": "49.00",
+    "total_price": "980.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 44,
+  "fields": {
+    "stock_exit": 44,
+    "product": 26,
+    "quantity": 1,
+    "sale_price": "2500.00",
+    "total_price": "2500.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 45,
+  "fields": {
+    "stock_exit": 45,
+    "product": 26,
+    "quantity": 1,
+    "sale_price": "2500.00",
+    "total_price": "2500.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 46,
+  "fields": {
+    "stock_exit": 46,
+    "product": 26,
+    "quantity": 2,
+    "sale_price": "2500.00",
+    "total_price": "5000.00"
+  }
+},
+{
+  "model": "api.stockexititem",
+  "pk": 47,
+  "fields": {
+    "stock_exit": 47,
+    "product": 26,
+    "quantity": 1,
+    "sale_price": "2500.00",
+    "total_price": "2500.00"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 19,
+  "fields": {
+    "invoice_number": "FAC-3-00001",
+    "stock_exit": 19,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:06:40.831Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 20,
+  "fields": {
+    "invoice_number": "FAC-3-00002",
+    "stock_exit": 20,
+    "customer": null,
+    "customer_name": "Client de passage",
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:06:40.860Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 21,
+  "fields": {
+    "invoice_number": "FAC-3-00003",
+    "stock_exit": 21,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:10:24.584Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 22,
+  "fields": {
+    "invoice_number": "FAC-3-00004",
+    "stock_exit": 22,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:28:29.689Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 23,
+  "fields": {
+    "invoice_number": "FAC-3-00005",
+    "stock_exit": 23,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:42:43.496Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 24,
+  "fields": {
+    "invoice_number": "FAC-3-00006",
+    "stock_exit": 24,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:48:25.095Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 25,
+  "fields": {
+    "invoice_number": "FAC-3-00007",
+    "stock_exit": 25,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:50:49.388Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 26,
+  "fields": {
+    "invoice_number": "FAC-3-00008",
+    "stock_exit": 26,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T20:56:16.030Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 27,
+  "fields": {
+    "invoice_number": "FAC-3-00009",
+    "stock_exit": 27,
+    "customer": 8,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-07-29T23:16:42.028Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 28,
+  "fields": {
+    "invoice_number": "FAC-3-00010",
+    "stock_exit": 28,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T16:14:49.088Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 29,
+  "fields": {
+    "invoice_number": "FAC-5-00001",
+    "stock_exit": 29,
+    "customer": 9,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:13:14.720Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 30,
+  "fields": {
+    "invoice_number": "FAC-5-00002",
+    "stock_exit": 30,
+    "customer": null,
+    "customer_name": "Client Anonyme",
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:13:14.806Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 31,
+  "fields": {
+    "invoice_number": "FAC-5-00003",
+    "stock_exit": 31,
+    "customer": 9,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:38:40.200Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 32,
+  "fields": {
+    "invoice_number": "FAC-5-00004",
+    "stock_exit": 32,
+    "customer": 9,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:46:41.516Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 33,
+  "fields": {
+    "invoice_number": "FAC-5-00005",
+    "stock_exit": 33,
+    "customer": null,
+    "customer_name": "Client Anonyme Test",
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:46:41.588Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 34,
+  "fields": {
+    "invoice_number": "FAC-5-00006",
+    "stock_exit": 34,
+    "customer": 9,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:47:40.155Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 35,
+  "fields": {
+    "invoice_number": "FAC-5-00007",
+    "stock_exit": 35,
+    "customer": null,
+    "customer_name": "Client Anonyme Test",
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:47:40.210Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 36,
+  "fields": {
+    "invoice_number": "FAC-5-00008",
+    "stock_exit": 36,
+    "customer": 9,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:55:39.746Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 37,
+  "fields": {
+    "invoice_number": "FAC-5-00009",
+    "stock_exit": 37,
+    "customer": 9,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:58:20.216Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 38,
+  "fields": {
+    "invoice_number": "FAC-5-00010",
+    "stock_exit": 38,
+    "customer": 9,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T19:59:04.963Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 39,
+  "fields": {
+    "invoice_number": "FAC-3-00011",
+    "stock_exit": 39,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T20:00:28.957Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 40,
+  "fields": {
+    "invoice_number": "FAC-3-00012",
+    "stock_exit": 40,
+    "customer": 7,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-02T20:18:17.024Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 41,
+  "fields": {
+    "invoice_number": "FAC-3-00013",
+    "stock_exit": 44,
+    "customer": 8,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-03T18:18:45.576Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 42,
+  "fields": {
+    "invoice_number": "FAC-3-00014",
+    "stock_exit": 45,
+    "customer": 8,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-03T18:22:22.648Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 43,
+  "fields": {
+    "invoice_number": "FAC-3-00015",
+    "stock_exit": 46,
+    "customer": 10,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-04T21:12:53.662Z"
+  }
+},
+{
+  "model": "api.invoice",
+  "pk": 44,
+  "fields": {
+    "invoice_number": "FAC-3-00016",
+    "stock_exit": 47,
+    "customer": 10,
+    "customer_name": null,
+    "total_amount": "0.00",
+    "created_at": "2025-08-17T10:26:00.145Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 5,
+  "fields": {
+    "transaction_number": "TRX-20250729-0001",
+    "transaction_type": "purchase",
+    "amount": "323.00",
+    "from_account": 7,
+    "to_account": null,
+    "stock_entry": 10,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Paiement fournisseur - Distributeur Alimentaire ABC",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:06:40.870Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 6,
+  "fields": {
+    "transaction_number": "TRX-20250729-0002",
+    "transaction_type": "sale",
+    "amount": "98.90",
+    "from_account": null,
+    "to_account": 6,
+    "stock_entry": null,
+    "stock_exit": 19,
+    "customer": null,
+    "description": "Encaissement vente - Restaurant Le Bon Goût",
+    "created_by": 12,
+    "created_at": "2025-07-29T20:06:40.879Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 7,
+  "fields": {
+    "transaction_number": "TRX-20250729-0003",
+    "transaction_type": "sale",
+    "amount": "50000.00",
+    "from_account": null,
+    "to_account": 7,
+    "stock_entry": null,
+    "stock_exit": 24,
+    "customer": null,
+    "description": "Vente à Restaurant Le Bon Goût - Bon EX-000006",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:48:25.100Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 8,
+  "fields": {
+    "transaction_number": "TRX-20250729-0004",
+    "transaction_type": "sale",
+    "amount": "500000.00",
+    "from_account": null,
+    "to_account": 7,
+    "stock_entry": null,
+    "stock_exit": 25,
+    "customer": null,
+    "description": "Vente à Restaurant Le Bon Goût - Bon EX-000007",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:50:49.397Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 9,
+  "fields": {
+    "transaction_number": "TRX-20250729-0005",
+    "transaction_type": "sale",
+    "amount": "500000.00",
+    "from_account": null,
+    "to_account": 7,
+    "stock_entry": null,
+    "stock_exit": 26,
+    "customer": null,
+    "description": "Vente à Restaurant Le Bon Goût - Bon EX-000008",
+    "created_by": 10,
+    "created_at": "2025-07-29T20:56:16.058Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 10,
+  "fields": {
+    "transaction_number": "TRX-20250729-0006",
+    "transaction_type": "purchase",
+    "amount": "100.00",
+    "from_account": 6,
+    "to_account": null,
+    "stock_entry": 13,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Distributeur Alimentaire ABC - Bon ENT-3-00004",
+    "created_by": 10,
+    "created_at": "2025-07-29T22:59:08.959Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 11,
+  "fields": {
+    "transaction_number": "TRX-20250729-0007",
+    "transaction_type": "sale",
+    "amount": "48.00",
+    "from_account": null,
+    "to_account": 6,
+    "stock_entry": null,
+    "stock_exit": 27,
+    "customer": null,
+    "description": "Vente à Café du Centre - Bon EX-000009",
+    "created_by": 10,
+    "created_at": "2025-07-29T23:16:42.036Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 12,
+  "fields": {
+    "transaction_number": "TRX-20250801-0001",
+    "transaction_type": "purchase",
+    "amount": "500.00",
+    "from_account": 6,
+    "to_account": null,
+    "stock_entry": 14,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Distributeur Alimentaire ABC - Bon EN-000005",
+    "created_by": 10,
+    "created_at": "2025-08-01T21:57:28.409Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 13,
+  "fields": {
+    "transaction_number": "TRX-20250801-0002",
+    "transaction_type": "purchase",
+    "amount": "500.00",
+    "from_account": 6,
+    "to_account": null,
+    "stock_entry": 15,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Distributeur Alimentaire ABC - Bon EN-000006",
+    "created_by": 10,
+    "created_at": "2025-08-01T22:02:58.480Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 14,
+  "fields": {
+    "transaction_number": "TRX-20250801-0003",
+    "transaction_type": "purchase",
+    "amount": "500000.00",
+    "from_account": 7,
+    "to_account": null,
+    "stock_entry": 16,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Grossiste Électronique XYZ - Bon EN-000007",
+    "created_by": 10,
+    "created_at": "2025-08-01T22:16:21.744Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 16,
+  "fields": {
+    "transaction_number": "TRX-20250802-0001",
+    "transaction_type": "purchase",
+    "amount": "50000.00",
+    "from_account": 7,
+    "to_account": null,
+    "stock_entry": 18,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Grossiste Électronique XYZ - Bon EN-000008",
+    "created_by": 10,
+    "created_at": "2025-08-02T15:04:35.271Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 17,
+  "fields": {
+    "transaction_number": "TRX-20250802-0002",
+    "transaction_type": "purchase",
+    "amount": "60000.00",
+    "from_account": 7,
+    "to_account": null,
+    "stock_entry": 19,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Distributeur Alimentaire ABC - Bon EN-000009",
+    "created_by": 10,
+    "created_at": "2025-08-02T15:05:40.785Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 18,
+  "fields": {
+    "transaction_number": "TRX-20250802-0003",
+    "transaction_type": "sale",
+    "amount": "50.00",
+    "from_account": null,
+    "to_account": 7,
+    "stock_entry": null,
+    "stock_exit": 28,
+    "customer": null,
+    "description": "Vente à Restaurant Le Bon Goût - Bon EX-000010",
+    "created_by": 10,
+    "created_at": "2025-08-02T16:14:49.109Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 19,
+  "fields": {
+    "transaction_number": "TRX-20250802-0004",
+    "transaction_type": "service",
+    "amount": "5000.00",
+    "from_account": null,
+    "to_account": 6,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Apport service - Formantion en bureautique",
+    "created_by": 10,
+    "created_at": "2025-08-02T16:19:12.120Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 20,
+  "fields": {
+    "transaction_number": "TRX-20250802-0005",
+    "transaction_type": "service",
+    "amount": "1000.00",
+    "from_account": null,
+    "to_account": 6,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Apport service - fdsfsd",
+    "created_by": 10,
+    "created_at": "2025-08-02T18:06:11.359Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 22,
+  "fields": {
+    "transaction_number": "TRX-20250802-0007",
+    "transaction_type": "sale",
+    "amount": "1350.00",
+    "from_account": null,
+    "to_account": 9,
+    "stock_entry": null,
+    "stock_exit": 30,
+    "customer": null,
+    "description": "Vente à Client Anonyme - Bon SOR-5-00002",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:13:14.825Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 26,
+  "fields": {
+    "transaction_number": "TRX-20250802-0008",
+    "transaction_type": "sale",
+    "amount": "1500.00",
+    "from_account": null,
+    "to_account": 9,
+    "stock_entry": null,
+    "stock_exit": 34,
+    "customer": null,
+    "description": "Vente à Client Test - Bon SOR-5-00006",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:47:40.175Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 27,
+  "fields": {
+    "transaction_number": "TRX-20250802-0009",
+    "transaction_type": "sale",
+    "amount": "1350.00",
+    "from_account": null,
+    "to_account": 9,
+    "stock_entry": null,
+    "stock_exit": 35,
+    "customer": null,
+    "description": "Vente à Client Anonyme Test - Bon SOR-5-00007",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:47:40.227Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 28,
+  "fields": {
+    "transaction_number": "TRX-20250802-0010",
+    "transaction_type": "sale",
+    "amount": "750.00",
+    "from_account": null,
+    "to_account": 9,
+    "stock_entry": null,
+    "stock_exit": 36,
+    "customer": null,
+    "description": "Vente à Client Test - Bon SOR-5-00008",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:55:39.794Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 29,
+  "fields": {
+    "transaction_number": "TRX-20250802-0011",
+    "transaction_type": "sale",
+    "amount": "750.00",
+    "from_account": null,
+    "to_account": 9,
+    "stock_entry": null,
+    "stock_exit": 37,
+    "customer": null,
+    "description": "Vente à Client Test - Bon SOR-5-00009",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:58:20.237Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 30,
+  "fields": {
+    "transaction_number": "TRX-20250802-0012",
+    "transaction_type": "sale",
+    "amount": "1500.00",
+    "from_account": null,
+    "to_account": 9,
+    "stock_entry": null,
+    "stock_exit": 38,
+    "customer": null,
+    "description": "Vente à Client Test - Bon SOR-5-00010",
+    "created_by": 14,
+    "created_at": "2025-08-02T19:59:04.999Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 31,
+  "fields": {
+    "transaction_number": "TRX-20250802-0013",
+    "transaction_type": "sale",
+    "amount": "49.00",
+    "from_account": null,
+    "to_account": 6,
+    "stock_entry": null,
+    "stock_exit": 39,
+    "customer": null,
+    "description": "Vente à Restaurant Le Bon Goût - Bon EX-000021",
+    "created_by": 10,
+    "created_at": "2025-08-02T20:00:28.993Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 32,
+  "fields": {
+    "transaction_number": "TRX-20250802-0014",
+    "transaction_type": "sale",
+    "amount": "980.00",
+    "from_account": null,
+    "to_account": 7,
+    "stock_entry": null,
+    "stock_exit": 40,
+    "customer": null,
+    "description": "Vente à Restaurant Le Bon Goût - Bon EX-000022",
+    "created_by": 10,
+    "created_at": "2025-08-02T20:18:17.031Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 33,
+  "fields": {
+    "transaction_number": "TRX-20250802-0015",
+    "transaction_type": "expense",
+    "amount": "1000.00",
+    "from_account": null,
+    "to_account": null,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Dépense service: jhg bhk",
+    "created_by": 10,
+    "created_at": "2025-08-02T21:42:11.449Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 34,
+  "fields": {
+    "transaction_number": "TRX-20250802-0016",
+    "transaction_type": "expense",
+    "amount": "5000.00",
+    "from_account": 10,
+    "to_account": null,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Test dépense - Frais de transport",
+    "created_by": 10,
+    "created_at": "2025-08-02T21:44:53.058Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 35,
+  "fields": {
+    "transaction_number": "TRX-20250802-0017",
+    "transaction_type": "service",
+    "amount": "15000.00",
+    "from_account": null,
+    "to_account": 11,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Test apport - Prestation de service",
+    "created_by": 10,
+    "created_at": "2025-08-02T21:49:04.751Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 36,
+  "fields": {
+    "transaction_number": "TRX-20250802-0018",
+    "transaction_type": "expense",
+    "amount": "8000.00",
+    "from_account": 11,
+    "to_account": null,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Test dépense - Frais de livraison",
+    "created_by": 10,
+    "created_at": "2025-08-02T21:49:04.764Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 37,
+  "fields": {
+    "transaction_number": "TRX-20250803-0001",
+    "transaction_type": "purchase",
+    "amount": "50000.00",
+    "from_account": 11,
+    "to_account": null,
+    "stock_entry": 20,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Grossiste Électronique XYZ - Bon EN-000010",
+    "created_by": 10,
+    "created_at": "2025-08-03T18:16:22.838Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 38,
+  "fields": {
+    "transaction_number": "TRX-20250803-0002",
+    "transaction_type": "sale",
+    "amount": "2500.00",
+    "from_account": null,
+    "to_account": 11,
+    "stock_entry": null,
+    "stock_exit": 44,
+    "customer": null,
+    "description": "Vente à Café du Centre - Bon EX-000026",
+    "created_by": 10,
+    "created_at": "2025-08-03T18:18:45.581Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 39,
+  "fields": {
+    "transaction_number": "TRX-20250803-0003",
+    "transaction_type": "sale",
+    "amount": "2500.00",
+    "from_account": null,
+    "to_account": 11,
+    "stock_entry": null,
+    "stock_exit": 45,
+    "customer": null,
+    "description": "Vente à Café du Centre - Bon EX-000027",
+    "created_by": 10,
+    "created_at": "2025-08-03T18:22:22.653Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 40,
+  "fields": {
+    "transaction_number": "TRX-20250803-0004",
+    "transaction_type": "debt_payment",
+    "amount": "1250.00",
+    "from_account": null,
+    "to_account": 10,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": 8,
+    "description": "Remboursement de dette - Café du Centre",
+    "created_by": 10,
+    "created_at": "2025-08-03T20:45:49.149Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 41,
+  "fields": {
+    "transaction_number": "TRX-20250804-0001",
+    "transaction_type": "debt_payment",
+    "amount": "980.00",
+    "from_account": null,
+    "to_account": 10,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": 7,
+    "description": "Remboursement de dette - Restaurant Le Bon Goût",
+    "created_by": 10,
+    "created_at": "2025-08-04T09:40:29.275Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 42,
+  "fields": {
+    "transaction_number": "TRX-20250804-0002",
+    "transaction_type": "debt_payment",
+    "amount": "2812.50",
+    "from_account": null,
+    "to_account": 10,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": 8,
+    "description": "Remboursement de dette - Café du Centre",
+    "created_by": 10,
+    "created_at": "2025-08-04T09:40:43.691Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 43,
+  "fields": {
+    "transaction_number": "TRX-20250804-0003",
+    "transaction_type": "sale",
+    "amount": "5000.00",
+    "from_account": null,
+    "to_account": 6,
+    "stock_entry": null,
+    "stock_exit": 46,
+    "customer": null,
+    "description": "Vente à Armel KAMBOU - Bon EX-000028",
+    "created_by": 10,
+    "created_at": "2025-08-04T21:12:53.694Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 44,
+  "fields": {
+    "transaction_number": "TRX-20250804-0004",
+    "transaction_type": "debt_payment",
+    "amount": "2500.00",
+    "from_account": null,
+    "to_account": 10,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": 10,
+    "description": "Remboursement de dette - Armel KAMBOU",
+    "created_by": 10,
+    "created_at": "2025-08-04T21:14:15.394Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 45,
+  "fields": {
+    "transaction_number": "TRX-20250804-0005",
+    "transaction_type": "service",
+    "amount": "700.00",
+    "from_account": null,
+    "to_account": 10,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Apport service - formation",
+    "created_by": 10,
+    "created_at": "2025-08-04T21:15:42.079Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 46,
+  "fields": {
+    "transaction_number": "TRX-20250804-0006",
+    "transaction_type": "expense",
+    "amount": "500.00",
+    "from_account": null,
+    "to_account": null,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Dépense service: twt",
+    "created_by": 10,
+    "created_at": "2025-08-04T21:19:02.482Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 47,
+  "fields": {
+    "transaction_number": "TRX-20250804-0007",
+    "transaction_type": "expense",
+    "amount": "50000.00",
+    "from_account": null,
+    "to_account": null,
+    "stock_entry": null,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Dépense service: guf",
+    "created_by": 10,
+    "created_at": "2025-08-04T21:23:37.322Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 48,
+  "fields": {
+    "transaction_number": "TRX-20250817-0001",
+    "transaction_type": "sale",
+    "amount": "2500.00",
+    "from_account": null,
+    "to_account": 11,
+    "stock_entry": null,
+    "stock_exit": 47,
+    "customer": null,
+    "description": "Vente à Armel KAMBOU - Bon EX-000029",
+    "created_by": 10,
+    "created_at": "2025-08-17T10:26:00.169Z"
+  }
+},
+{
+  "model": "api.financialtransaction",
+  "pk": 49,
+  "fields": {
+    "transaction_number": "TRX-20250817-0002",
+    "transaction_type": "purchase",
+    "amount": "78000.00",
+    "from_account": 7,
+    "to_account": null,
+    "stock_entry": 21,
+    "stock_exit": null,
+    "customer": null,
+    "description": "Achat auprès de Grossiste Électronique XYZ - Bon EN-000011",
+    "created_by": 10,
+    "created_at": "2025-08-17T10:31:28.172Z"
+  }
+},
+{
+  "model": "api.stocktransfer",
+  "pk": 1,
+  "fields": {
+    "transfer_number": "TRF-5-00001",
+    "from_warehouse": 8,
+    "to_warehouse": 9,
+    "status": "completed",
+    "notes": "Test du nouveau modèle StockTransfer",
+    "created_by": 10,
+    "created_at": "2025-08-02T21:12:05.034Z",
+    "completed_at": "2025-08-02T21:12:05.053Z"
+  }
+},
+{
+  "model": "api.stocktransfer",
+  "pk": 2,
+  "fields": {
+    "transfer_number": "TRF-3-00001",
+    "from_warehouse": 7,
+    "to_warehouse": 6,
+    "status": "completed",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-02T21:20:54.849Z",
+    "completed_at": "2025-08-02T21:21:10.610Z"
+  }
+},
+{
+  "model": "api.stocktransfer",
+  "pk": 3,
+  "fields": {
+    "transfer_number": "TRF-3-00002",
+    "from_warehouse": 7,
+    "to_warehouse": 9,
+    "status": "completed",
+    "notes": "",
+    "created_by": 10,
+    "created_at": "2025-08-03T18:21:20.369Z",
+    "completed_at": "2025-08-03T18:21:25.029Z"
+  }
+},
+{
+  "model": "api.stocktransfer",
+  "pk": 4,
+  "fields": {
+    "transfer_number": "TRF-3-00003",
+    "from_warehouse": 7,
+    "to_warehouse": 6,
+    "status": "completed",
+    "notes": "tt4y",
+    "created_by": 10,
+    "created_at": "2025-08-04T21:08:44.373Z",
+    "completed_at": "2025-08-04T21:09:03.106Z"
+  }
+},
+{
+  "model": "api.stocktransferitem",
+  "pk": 1,
+  "fields": {
+    "stock_transfer": 1,
+    "product": 24,
+    "quantity": 8
+  }
+},
+{
+  "model": "api.stocktransferitem",
+  "pk": 2,
+  "fields": {
+    "stock_transfer": 2,
+    "product": 20,
+    "quantity": 1
+  }
+},
+{
+  "model": "api.stocktransferitem",
+  "pk": 3,
+  "fields": {
+    "stock_transfer": 3,
+    "product": 26,
+    "quantity": 500
+  }
+},
+{
+  "model": "api.stocktransferitem",
+  "pk": 4,
+  "fields": {
+    "stock_transfer": 4,
+    "product": 26,
+    "quantity": 51
+  }
+}
+]

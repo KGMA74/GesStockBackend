@@ -1,0 +1,2 @@
+web: python manage.py migrate loaddata db.json && gunicorn GesStockBackend.wsgi --timeout 60 --workers 2 --log-file -
+Webb: python manage.py migrate && python manage.py runserver 0.0.0.0:${PORT}
