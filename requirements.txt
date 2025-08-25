@@ -14,6 +14,7 @@ bw2data==4.5
 bw2io==0.9.11
 bw2parameters==1.1.0
 bw_processing==1.0
+bw_simapro_csv==0.4.2
 cached-property==2.0.1
 certifi==2025.7.14
 cffi==1.17.1
@@ -44,6 +45,7 @@ flexcache==0.3
 flexparser==0.4
 fonttools==4.59.0
 fsspec==2025.7.0
+ftfy==6.3.1
 greenlet==3.2.3
 gunicorn==23.0.0
 idna==3.10
@@ -61,6 +63,7 @@ lxml==6.0.0
 matrix_utils==0.6
 morefs==0.2.2
 mrio-common-metadata==0.2.1
+multifunctional==1.1.1
 numba==0.61.2
 numpy==1.26.4
 oauthlib==3.3.1
