@@ -1,0 +1,18 @@
+[phases.setup]
+nixLibs = [
+    "cairo.dev",
+    "cairo",
+    "pango.dev",
+    "pango", 
+    "glib.dev",
+    "glib",
+    "gdk-pixbuf.dev",
+    "gdk-pixbuf",
+    "gobject-introspection.dev",
+    "gtk3",
+    "harfbuzz",
+    "fribidi",
+    "fontconfig",
+    "freetype",
+    "stdenv.cc.cc.lib"
+]
