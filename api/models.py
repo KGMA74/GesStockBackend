@@ -93,7 +93,7 @@ class Warehouse(models.Model):
         verbose_name_plural = "Magasins/Entrepôts"
 
 
-# 👥 EMPLOYÉS (sans connexion, juste pour suivi)
+
 class Employee(models.Model):
     POSITION_CHOICES = [
         ('vendeur', 'Vendeur'),
