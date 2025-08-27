@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'djoser',
+    'compressor',
 
     
     # project applications
@@ -121,6 +122,9 @@ STATICFILES_DIRS = [
 
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True  # Active la compression hors ligne
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
