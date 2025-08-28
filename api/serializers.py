@@ -140,6 +140,10 @@ class WarehouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Warehouse
         fields = '__all__'
+        
+    def validate(self, attrs):
+        attrs['store'] = self.context.get('store', '')
+        return super().validate(attrs)
 
 
 class CustomerSerializer(serializers.ModelSerializer):

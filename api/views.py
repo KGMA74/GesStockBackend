@@ -522,11 +522,13 @@ class WarehouseViewSet(viewsets.ModelViewSet, StoreContextMixin):
     
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context['store'] = self.store
+        context['store'] = self.request.user.store
         return context
     
-    def perform_create(self, serializer):
-        serializer.save(store=self.store)
+    def create(self, request, *args, **kwargs):
+        request.data['store'] = self.store.id
+        return super().create(request, *args, **kwargs)
+        
 
 
 class StockEntryViewSet(viewsets.ModelViewSet, StoreContextMixin):
