@@ -134,6 +134,10 @@ class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
         fields = '__all__'
+        
+    def validate(self, attrs):
+        attrs['store'] = self.context.get('store', '')
+        return super().validate(attrs)
 
 
 class WarehouseSerializer(serializers.ModelSerializer):

@@ -485,8 +485,9 @@ class SupplierViewSet(viewsets.ModelViewSet, StoreContextMixin):
         context['store'] = self.store
         return context
     
-    def perform_create(self, serializer):
-        serializer.save(store=self.store)
+    def create(self, request, *args, **kwargs):
+        request.data['store'] = self.store.id
+        return super().create(request, *args, **kwargs)
     
     @action(detail=False, methods=['get'], url_path='search')
     def search(self, request):
