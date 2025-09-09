@@ -406,7 +406,7 @@ class StockTransferFormSerializer(serializers.Serializer):
 class DebtPaymentSerializer(serializers.Serializer):
     """Serializer pour les remboursements de dette client"""
     customer = serializers.IntegerField()
-    amount = serializers.DecimalField(max_digits=15, decimal_places=2, min_value=0.01)
+    amount = serializers.DecimalField(max_digits=15, decimal_places=2, min_value=Decimal('0.01'))
     account = serializers.IntegerField()
     description = serializers.CharField(max_length=500, required=False)
     
