@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport des Transactions</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+            @top-center {
+                content: "{{ store.name }}";
+                font-size: 14px;
+                font-weight: bold;
+            }
+            @bottom-center {
+                content: "Page " counter(page) " sur " counter(pages);
+                font-size: 10px;
+            }
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #2563eb;
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        
+        .header h2 {
+            color: #1e40af;
+            font-size: 20px;
+            margin: 10px 0 0 0;
+            font-weight: normal;
+        }
+        
+        .header .subtitle {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .company-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .company-section h3 {
+            color: #2563eb;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        
+        .report-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 30px;
+        }
+        
+        .report-info {
+            flex: 1;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .account-info {
+            flex: 1;
+            background: #fef7ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #9333ea;
+        }
+        
+        .info-title {
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .info-row {
+            margin-bottom: 8px;
+            display: flex;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            color: #475569;
+        }
+        
+        .info-value {
+            color: #1e293b;
+        }
+        
+        .stats-section {
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-around;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .stat-entrees .stat-value {
+            color: #10b981;
+        }
+        
+        .stat-sorties .stat-value {
+            color: #ef4444;
+        }
+        
+        .stat-solde .stat-value {
+            color: #2563eb;
+        }
+        
+        .transactions-section {
+            margin: 30px 0;
+        }
+        
+        .transactions-title {
+            color: #2563eb;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .transactions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .transactions-table th {
+            background: #2563eb;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        .transactions-table th:nth-child(3),
+        .transactions-table th:nth-child(7) {
+            text-align: right;
+        }
+        
+        .transactions-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 10px;
+        }
+        
+        .transactions-table td:nth-child(3),
+        .transactions-table td:nth-child(7) {
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .transactions-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .transaction-number {
+            font-family: monospace;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        
+        .transaction-type {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .type-purchase {
+            background: #ddd6fe;
+            color: #5b21b6;
+        }
+        
+        .type-sale {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .type-service {
+            background: #bfdbfe;
+            color: #1e40af;
+        }
+        
+        .type-expense {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .type-transfer {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .amount-positive {
+            color: #10b981;
+        }
+        
+        .amount-negative {
+            color: #ef4444;
+        }
+        
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #64748b;
+            font-size: 10px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+        
+        .no-transactions {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>RAPPORT DES TRANSACTIONS</h1>
+        <h2>{{ store.name }}</h2>
+        <div class="subtitle">
+            {% if date_from and date_to %}
+                Du {{ date_from|date:"d/m/Y" }} au {{ date_to|date:"d/m/Y" }}
+            {% elif date_from %}
+                À partir du {{ date_from|date:"d/m/Y" }}
+            {% elif date_to %}
+                Jusqu'au {{ date_to|date:"d/m/Y" }}
+            {% else %}
+                Toutes les transactions
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="company-section">
+        <h3>Informations de l'entreprise</h3>
+        <div class="info-row">
+            <span class="info-label">Nom:</span>
+            <span class="info-value">{{ store.name }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Adresse:</span>
+            <span class="info-value">{{ store.address }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Téléphone:</span>
+            <span class="info-value">{{ store.phone }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ store.email }}</span>
+        </div>
+    </div>
+    
+    <div class="report-details">
+        <div class="report-info">
+            <div class="info-title">Détails du rapport</div>
+            <div class="info-row">
+                <span class="info-label">Généré le:</span>
+                <span class="info-value">{{ "now"|date:"d/m/Y à H:i" }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Période:</span>
+                <span class="info-value">
+                    {% if date_from and date_to %}
+                        {{ date_from|date:"d/m/Y" }} - {{ date_to|date:"d/m/Y" }}
+                    {% elif date_from %}
+                        À partir du {{ date_from|date:"d/m/Y" }}
+                    {% elif date_to %}
+                        Jusqu'au {{ date_to|date:"d/m/Y" }}
+                    {% else %}
+                        Toutes les transactions
+                    {% endif %}
+                </span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Nb transactions:</span>
+                <span class="info-value">{{ transactions.count }}</span>
+            </div>
+        </div>
+        
+        {% if account_name %}
+        <div class="account-info">
+            <div class="info-title">Compte sélectionné</div>
+            <div class="info-row">
+                <span class="info-label">Nom:</span>
+                <span class="info-value">{{ account_name }}</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="stats-section">
+        <div class="stat-item stat-entrees">
+            <div class="stat-value">{{ total_entrees|floatformat:0 }}</div>
+            <div class="stat-label">TOTAL ENTRÉES (FCFA)</div>
+        </div>
+        <div class="stat-item stat-sorties">
+            <div class="stat-value">{{ total_sorties|floatformat:0 }}</div>
+            <div class="stat-label">TOTAL SORTIES (FCFA)</div>
+        </div>
+        <div class="stat-item stat-solde">
+            <div class="stat-value">{{ solde_net|floatformat:0 }}</div>
+            <div class="stat-label">SOLDE NET (FCFA)</div>
+        </div>
+    </div>
+    
+    <div class="transactions-section">
+        <div class="transactions-title">Liste des transactions</div>
+        
+        {% if transactions %}
+        <table class="transactions-table">
+            <thead>
+                <tr>
+                    <th>N° Transaction</th>
+                    <th>Type</th>
+                    <th>Montant</th>
+                    <th>Description</th>
+                    <th>Compte Source</th>
+                    <th>Compte Cible</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td class="transaction-number">{{ transaction.transaction_number }}</td>
+                    <td>
+                        <span class="transaction-type type-{{ transaction.transaction_type }}">
+                            {{ transaction.get_transaction_type_display }}
+                        </span>
+                    </td>
+                    <td class="{% if transaction.transaction_type == 'sale' or transaction.transaction_type == 'expense' %}amount-negative{% else %}amount-positive{% endif %}">
+                        {{ transaction.amount|floatformat:0 }} FCFA
+                    </td>
+                    <td>{{ transaction.description|truncatechars:40 }}</td>
+                    <td>{{ transaction.from_account.name|default:"-" }}</td>
+                    <td>{{ transaction.to_account.name|default:"-" }}</td>
+                    <td>{{ transaction.created_at|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="no-transactions">
+            Aucune transaction trouvée pour les critères sélectionnés.
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="footer">
+        <p><strong>Rapport généré automatiquement</strong></p>
+        <p>{{ store.name }} - {{ store.address }} - {{ store.phone }}</p>
+        <p>Généré le {{ "now"|date:"d/m/Y à H:i" }}</p>
+    </div>
+</body>
+</html>

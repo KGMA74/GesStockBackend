@@ -1324,6 +1324,75 @@ class FinancialTransactionViewSet(viewsets.ModelViewSet, StoreContextMixin):
         wb.save(response)
         return response
 
+    # Export des transactions au format PDF
+    @action(detail=False, methods=['get'])
+    def export_pdf(self, request):
+        """
+        Exporter les transactions en format PDF
+        """
+        account_id = request.query_params.get('account_id')
+        date_from = request.query_params.get('date_from')
+        date_to = request.query_params.get('date_to')
+
+        # Récupérer les transactions en fonction des paramètres
+        transactions = self.get_queryset()
+
+        if account_id:
+            transactions = transactions.filter(
+                Q(from_account_id=account_id) | Q(to_account_id=account_id)
+            )
+        if date_from:
+            transactions = transactions.filter(created_at__date__gte=date_from)
+        if date_to:
+            transactions = transactions.filter(created_at__date__lte=date_to)
+
+        # Récupérer les informations du store
+        store = request.user.store
+
+        # Calculer les statistiques
+        total_entrees = transactions.filter(
+            transaction_type__in=['purchase', 'service', 'transfer']
+        ).aggregate(total=Sum('amount'))['total'] or 0
+
+        total_sorties = transactions.filter(
+            transaction_type__in=['sale', 'expense']
+        ).aggregate(total=Sum('amount'))['total'] or 0
+
+        solde_net = total_entrees - total_sorties
+
+        # Préparer le contexte pour le template
+        context = {
+            'transactions': transactions,
+            'store': store,
+            'total_entrees': total_entrees,
+            'total_sorties': total_sorties,
+            'solde_net': solde_net,
+            'date_from': date_from,
+            'date_to': date_to,
+            'account_name': '',
+        }
+
+        # Si un compte spécifique est sélectionné, récupérer son nom
+        if account_id:
+            try:
+                account = Account.objects.get(id=account_id, store=store)
+                context['account_name'] = account.name
+            except Account.DoesNotExist:
+                pass
+
+        # Rendre le template HTML
+        html_string = render_to_string('transactions_pdf.html', context)
+        
+        # Générer le PDF
+        html_doc = HTML(string=html_string)
+        pdf_bytes = html_doc.write_pdf()
+
+        # Créer la réponse HTTP
+        response = HttpResponse(pdf_bytes, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="rapport_transactions.pdf"'
+        
+        return response
+
 # 🔄 VIEWSET POUR LES TRANSFERTS DE STOCK
 class StockTransferViewSet(viewsets.ModelViewSet):
     """
