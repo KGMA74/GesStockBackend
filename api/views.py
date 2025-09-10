@@ -370,11 +370,27 @@ class ProductViewSet(viewsets.ModelViewSet, StoreContextMixin):
         if not search_query:
             return Response([])
         
-        queryset = self.get_queryset().filter(
+        # Obtenir le queryset de base sans l'ordre par défaut
+        base_queryset = Product.objects.all()
+        base_queryset = self.get_store_queryset(base_queryset)
+        
+        # Recherche avec ordre de pertinence
+        from django.db.models import Case, When, Value, IntegerField
+        
+        queryset = base_queryset.filter(
             Q(name__icontains=search_query) |
             Q(reference__icontains=search_query) |
             Q(description__icontains=search_query)
-        )[:limit]
+        ).annotate(
+            # Priorité de recherche : référence exacte > référence partielle > nom partielle
+            search_priority=Case(
+                When(reference__iexact=search_query, then=Value(1)),
+                When(reference__icontains=search_query, then=Value(2)),
+                When(name__icontains=search_query, then=Value(3)),
+                default=Value(4),
+                output_field=IntegerField()
+            )
+        ).order_by('search_priority', 'reference', 'name')[:limit]
         
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
