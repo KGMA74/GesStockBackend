@@ -1,4 +1,5 @@
-from unfold import admin
+from django.contrib import admin
+from unfold.admin import ModelAdmin
 from .models import (
     User, Store, Warehouse, Employee, Supplier, Customer, Product, ProductStock,
     StockEntry, StockEntryItem, StockExit, StockExitItem, Invoice, Account, FinancialTransaction
@@ -7,7 +8,7 @@ from .models import (
 
 # Configuration Admin pour Store
 @admin.register(Store)
-class StoreAdmin(admin.ModelAdmin):
+class StoreAdmin(ModelAdmin):
     list_display = ['name', 'is_active', 'created_at']
     list_filter = ['is_active', 'created_at']
     search_fields = ['name']
@@ -16,7 +17,7 @@ class StoreAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour User
 @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(ModelAdmin):
     list_display = ['username', 'fullname', 'store', 'is_active', 'is_staff']
     list_filter = ['is_active', 'is_staff', 'store']
     search_fields = ['username', 'fullname', 'phone']
@@ -25,7 +26,7 @@ class UserAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour Warehouse
 @admin.register(Warehouse)
-class WarehouseAdmin(admin.ModelAdmin):
+class WarehouseAdmin(ModelAdmin):
     list_display = ['name', 'store', 'is_active']
     list_filter = ['is_active', 'store']
     search_fields = ['name']
@@ -33,7 +34,7 @@ class WarehouseAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour Employee
 @admin.register(Employee)
-class EmployeeAdmin(admin.ModelAdmin):
+class EmployeeAdmin(ModelAdmin):
     list_display = ['fullname', 'position', 'store', 'salary', 'hire_date', 'is_active']
     list_filter = ['position', 'is_active', 'store', 'hire_date']
     search_fields = ['fullname', 'phone']
@@ -42,7 +43,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour Supplier
 @admin.register(Supplier)
-class SupplierAdmin(admin.ModelAdmin):
+class SupplierAdmin(ModelAdmin):
     list_display = ['name', 'store', 'phone', 'is_active']
     list_filter = ['is_active', 'store']
     search_fields = ['name', 'phone', 'email']
@@ -50,7 +51,7 @@ class SupplierAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour Customer
 @admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
+class CustomerAdmin(ModelAdmin):
     list_display = ['name', 'store', 'phone', 'is_active']
     list_filter = ['is_active', 'store']
     search_fields = ['name', 'phone', 'email']
@@ -58,7 +59,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour Product
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ModelAdmin):
     list_display = ['reference', 'name', 'store', 'unit', 'min_stock_alert', 'is_active']
     list_filter = ['is_active', 'store', 'unit']
     search_fields = ['reference', 'name']
@@ -67,7 +68,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour ProductStock
 @admin.register(ProductStock)
-class ProductStockAdmin(admin.ModelAdmin):
+class ProductStockAdmin(ModelAdmin):
     list_display = ['product', 'warehouse', 'quantity', 'last_updated']
     list_filter = ['warehouse__store', 'warehouse', 'last_updated']
     search_fields = ['product__reference', 'product__name', 'warehouse__name']
@@ -76,7 +77,7 @@ class ProductStockAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour Account
 @admin.register(Account)
-class AccountAdmin(admin.ModelAdmin):
+class AccountAdmin(ModelAdmin):
     list_display = ['name', 'account_type', 'store', 'balance', 'is_active']
     list_filter = ['account_type', 'is_active', 'store']
     search_fields = ['name']
@@ -92,7 +93,7 @@ class StockEntryItemInline(admin.TabularInline):
 
 # Configuration Admin pour StockEntry
 @admin.register(StockEntry)
-class StockEntryAdmin(admin.ModelAdmin):
+class StockEntryAdmin(ModelAdmin):
     list_display = ['entry_number', 'supplier', 'warehouse', 'total_amount', 'created_at']
     list_filter = ['warehouse__store', 'warehouse', 'supplier', 'created_at']
     search_fields = ['entry_number', 'supplier__name']
@@ -110,7 +111,7 @@ class StockExitItemInline(admin.TabularInline):
 
 # Configuration Admin pour StockExit
 @admin.register(StockExit)
-class StockExitAdmin(admin.ModelAdmin):
+class StockExitAdmin(ModelAdmin):
     list_display = ['exit_number', 'get_customer_name', 'warehouse', 'total_amount', 'created_at']
     list_filter = ['warehouse__store', 'warehouse', 'created_at']
     search_fields = ['exit_number', 'customer__name', 'customer_name']
@@ -125,7 +126,7 @@ class StockExitAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour Invoice
 @admin.register(Invoice)
-class InvoiceAdmin(admin.ModelAdmin):
+class InvoiceAdmin(ModelAdmin):
     list_display = ['invoice_number', 'get_customer_name', 'total_amount', 'created_at']
     list_filter = ['stock_exit__warehouse__store', 'created_at']
     search_fields = ['invoice_number', 'customer__name', 'customer_name']
@@ -139,7 +140,7 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 # Configuration Admin pour FinancialTransaction
 @admin.register(FinancialTransaction)
-class FinancialTransactionAdmin(admin.ModelAdmin):
+class FinancialTransactionAdmin(ModelAdmin):
     list_display = ['transaction_number', 'transaction_type', 'amount', 'from_account', 'to_account', 'created_at']
     list_filter = ['transaction_type', 'from_account__store', 'created_at']
     search_fields = ['transaction_number', 'description']
