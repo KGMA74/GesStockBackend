@@ -1,4 +1,4 @@
-from django.contrib import admin
+from unfold import admin
 from .models import (
     User, Store, Warehouse, Employee, Supplier, Customer, Product, ProductStock,
     StockEntry, StockEntryItem, StockExit, StockExitItem, Invoice, Account, FinancialTransaction
